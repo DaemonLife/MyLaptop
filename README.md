@@ -57,9 +57,9 @@ umount /mnt
 ```
 Работа с разделами btrfs
 ```
-mkdir /mnt/home
-
 mount -o noatime,nodiratime,compress=zstd,space_cache,ssd,subvol=@ /dev/mapper/luks /mnt
+
+mkdir /mnt/home
 
 mount -o noatime,nodiratime,compress=zstd,space_cache,ssd,subvol=@home /dev/mapper/luks /mnt/home
 ```
