@@ -1,0 +1,133 @@
+{
+    "layer": "top",
+    "position": "bottom", 
+    "height": 26,
+    "modules-left": ["sway/workspaces"],
+
+    "modules-center": ["custom/parag2", "custom/parag3", "sway/window", "custom/parag3","custom/parag2"],
+
+    "modules-right": ["tray", "custom/parag", "sway/language", "custom/parag", "idle_inhibitor", "bluetooth", "network", "custom/parag", "pulseaudio", "custom/parag", "battery", "custom/parag", "custom/date", "clock", "custom/parag", "custom/power"],
+
+
+
+// Modules configuration
+    "sway/workspaces": {
+	"disable-scroll": true,
+	"all-outputs": true,
+	"format": "{icon}",
+ 	"persistent_workspaces": {
+ 		"1": [],
+ 		"2": [],
+ 		"3": [],
+                "4": [],
+	},
+       	"format-icons": {
+       		"1": "",
+       		"2": "",
+       		"3": "",
+      		"4": "",
+       		"5": "5",
+       		"6": "6",
+      		"7": "7",
+       		"8": "8",
+       		"9": "9",
+       		"10": "10",
+        }
+    },
+    
+
+    "tray": {
+        /* "icon-size": 12, */
+    },
+    
+    "idle_inhibitor": {
+        "format": "{icon}",
+        "format-icons": {
+            "activated": "",
+            "deactivated": ""
+        }
+    },
+    
+    "bluetooth": {
+        "format": "{icon}",
+        "format-alt": "{icon}",
+        "interval": 30,
+        "format-icons": {
+            "enabled": "",
+            "disabled": ""
+        },
+        "tooltip-format": " {} ",
+        "on-click": "bluetoothctl power off"
+    },
+    
+    "custom/parag": {
+        "format": " | ",
+    },
+    
+    "sway/language": {
+        "format": "{}",
+        "max-length": 58
+    },
+    
+    "clock": {
+       	"tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
+       	"format": "{:%R}"
+    },
+
+    "battery": {
+        "states": {
+            "good": 90,
+            "warning": 30,
+            "critical": 15
+        },
+        "interval": 30,
+        "format": "{capacity}",
+        "format-charging": "{capacity}",
+        "format-plugged": "{capacity}",
+        "format-alt": "{time} {icon}",
+        "format-icons": ["", "", "", "", ""],
+        "on-click": "gnome-power-statistics",
+    },
+
+    "network": {
+            "format-wifi": "",
+            "format-ethernet": "{ifname}: {ipaddr}/{cidr} ",
+        "format-linked": "{ifname} (No IP)",
+        "format-disconnected": "",
+        "on-click": "nmcli dev wifi rescan && kitty -- zsh -c nmtui"
+    },
+
+    "pulseaudio": {
+		"format": "{volume}",
+        	"format-muted": "0",
+        "format-icons": {
+            "headphone": "",
+            "hands-free": "",
+            "headset": "",
+            "phone": "",
+            "portable": "",
+            "car": "",
+            "default": ["", "", ""]
+        },
+        "on-click": "pavucontrol"
+    },
+    "custom/weather": {
+        "exec": "curl 'https://wttr.in/?format=1'",
+        "interval": 3600
+    },
+
+    "custom/power": {
+        "format": "  ",
+	"on-click": "swaynag -t warning -m 'Power Menu Options' -b 'Logout' 'swaymsg exit' -b 'Restart' 'shutdown -r now' -b 'Shutdown'  'shutdown -h now' --background=#2e3440 --button-background=#e5e9f0 --button-border=#e5e9f0 --border-bottom=#2e3440 --"
+    },
+
+
+
+
+
+},
+
+
+
+
+

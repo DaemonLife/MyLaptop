@@ -1,0 +1,102 @@
+* {
+    border-radius: 0;
+    /* font-family: "Ubuntu Nerd Font"; */
+    font-family: "Inconsolata Medium";
+    color: #DBCBB9;
+}
+
+window#waybar {
+    background-color: #40303B;
+    transition-property: background-color;
+    transition-duration: .5s;
+
+}
+#window{
+    font-family: "Cantarell";
+}
+
+#language, #idle_inhibitor, #bluetooth, #network, #pulseaudio, #battery, #date, #clock, #parag, #custom-power{
+    font-weight: bold;
+    margin-right: 3px;
+    margin-left: 3px;
+    font-size: 14px;
+}
+
+#clock {
+    font-weight: bold;
+    margin-right: 5px;
+}
+
+#tray{
+    font-size: 12px;
+}
+
+#custom-parag{
+    font-weight: bold;
+    /* font: bold; */
+    margin: 0 2 0 2;
+}
+
+#language{
+font-weight: bold;
+}
+
+#custom-power{
+    font-weight: bold;
+    margin: -1 4 0 -2;
+}
+
+#workspaces button {
+    font-weight: bold;
+    padding: 0 6 0 6;
+}
+#workspaces button.focused {
+    background-color: #F27244;
+    /* font-weight: bold; */
+}
+
+#battery.warning:not(.charging) {
+    color: white;
+    animation-name: blink;
+    animation-duration: 0.5s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+@keyframes blink {
+    to {
+        color: #bf616a;
+    }
+}
+
+#idle_inhibitor{
+    /* color: #be9b7b; */
+}
+
+#pulseaudio{
+    /* color: #ebcb8b; */
+}
+
+#network {
+    /* color: #189ab4; */
+    /* color: #bf616a; */
+}
+#network.disconnected {
+    color: #bf616a;
+}
+
+#bluetooth{
+    /* color: #5e81ac; */
+}
+
+
+
+
+
+
+
+/* window#waybar { */
+/*     background: @theme_base_color; */
+    /* border-bottom: 1px solid @unfocused_borders; */
+    /* color: @theme_text_color; */
+/* } */
