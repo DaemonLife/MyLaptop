@@ -123,17 +123,17 @@ HOOKS="base keyboard udev autodetect modconf block keymap encrypt btrfs filesyst
 
 ```bootctl --path=/boot install```
 
-Узнаем свой UUID
-```
+Узнаать свой UUID можно с помощью этой комаеды
+~~~
 blkid -s UUID -o value /dev/sda2
-```
+~~~
 Создаем и заполняем файл /boot/loader/entries/arch.conf, включая свой UUID:
 ```
 title Arch Linux
 linux /vmlinuz-linux
 initrd /amd-ucode.img
 initrd /initramfs-linux.img
-options cryptdevice=UUID=<UUID-OF-ROOT-PARTITION>:luks:allow-discards root=/dev/mapper/luks rootflags=subvol=@ rd.luks.options=discard rw
+options cryptdevice=UUID=$(blkid -s UUID -o value /dev/nvme0n1p1):luks:allow-discards root=/dev/mapper/luks rootflags=subvol=@ rd.luks.options=discard rw
 ```
 Очищаем файл boot/loader/loader.conf и добавляем свои строки:
 ```
