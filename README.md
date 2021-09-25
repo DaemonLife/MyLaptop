@@ -123,11 +123,11 @@ HOOKS="base keyboard udev autodetect modconf block keymap encrypt btrfs filesyst
 
 ```bootctl --path=/boot install```
 
-Узнаать свой UUID можно с помощью этой комаеды
+Узнаать свой UUID можно с помощью этой команды:
 ~~~
 blkid -s UUID -o value /dev/sda2
 ~~~
-Создаем и заполняем файл /boot/loader/entries/arch.conf, включая свой UUID:
+Применяем команду и создаем и заполняем файл /boot/loader/entries/arch.conf, включая свой UUID:
 ```
 title Arch Linux
 linux /vmlinuz-linux
