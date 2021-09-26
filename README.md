@@ -22,13 +22,11 @@ exit
 ```
 Обновление системного времени.
 ```
-timedatectl set-ntp true
-timedatectl status
+timedatectl set-ntp true && timedatectl status
 ```
 Клавиатура
 ~~~
-loadkeys ru
-loadkeys us
+loadkeys ru && loadkeys us
 ~~~
 Создание разделов диска
 ```
@@ -36,37 +34,31 @@ cfdisk # создаем два раздела: EFI (sda1) и корневой т
 ```
 Шифрование корневого раздела
 ```
-cryptsetup luksFormat /dev/sda2
-cryptsetup open /dev/sda2 luks
+cryptsetup luksFormat /dev/sda2 && cryptsetup open /dev/sda2 luks
 ```
 Форматирование
 ```
-mkfs.vfat -F32 -n EFI /dev/sda1
-mkfs.btrfs -L ROOT /dev/mapper/luks
+mkfs.vfat -F32 -n EFI /dev/sda1 && mkfs.btrfs -L ROOT /dev/mapper/luks
 ```
 Монтирование разделов
 ```
 mount /dev/mapper/luks /mnt
-```
-```
-btrfs sub create /mnt/@
-btrfs sub create /mnt/@home
-```
-```
+&&
+btrfs sub create /mnt/@ && btrfs sub create /mnt/@home
+&&
 umount /mnt
 ```
 Работа с разделами btrfs
 ```
 mount -o noatime,nodiratime,compress=zstd,space_cache,ssd,subvol=@ /dev/mapper/luks /mnt
-
+&&
 mkdir /mnt/home
-
+&&
 mount -o noatime,nodiratime,compress=zstd,space_cache,ssd,subvol=@home /dev/mapper/luks /mnt/home
 ```
 Монтирование EFI
 ```
-mkdir /mnt/boot
-mount /dev/sda1 /mnt/boot
+mkdir /mnt/boot && mount /dev/sda1 /mnt/boot
 ```
 Pacstrap:
 ```
@@ -80,20 +72,16 @@ genfstab -U /mnt >> /mnt/etc/fstab
 ```
 arch-chroot /mnt
 ```
-Часовой пояс
-```
-ln -sf /usr/share/zoneinfo/Регион/Город /etc/localtime
-hwclock --systohc
-```
 Локализация. Отредактируйте файл /etc/locale.gen, раскомментировав en_US.UTF-8 UTF-8 и другие необходимые локали (например ru_RU.UTF-8 UTF-8), после чего сгенерируйте их: 
 ```
 echo LANG=en_US.UTF-8 >> /etc/locale.conf
-ln -sf /usr/share/zoneinfo/Europe/Moscow /etc/localtime
-locale-gen
+&& locale-gen
+&& ln -sf /usr/share/zoneinfo/Europe/Moscow /etc/localtime
+&& hwclock --systohc
 ```
 Запись хоста в файлы
 ```
-echo {myhostname} >> /etc/hostname
+echo arch >> /etc/hostname
 
 nvim /etc/hosts
 
@@ -101,7 +89,7 @@ nvim /etc/hosts
 
 ::1        localhost
 
-127.0.1.1  myhostname.localdomain  myhostname
+127.0.1.1  arch.localdomain  arch
 ```
 Задать пароль администратору
 ```
