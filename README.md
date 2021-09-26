@@ -76,7 +76,6 @@ mount -o noatime,nodiratime,compress=zstd,space_cache,ssd,subvol=@home
 
 
 Now mount them:
-
 ~~~
 mkdir /mnt/boot
 mount /dev/sda2 /mnt/boot
@@ -94,9 +93,8 @@ genfstab -U /mnt >> /mnt/etc/fstab
 arch-chroot /mnt
 ~~~
 
-Локализация. Отредактируйте файл /etc/locale.gen, раскомментировав en_US.UTF-8 UTF-8 и другие необходимые локали (например ru_RU.UTF-8 UTF-8), после чего сгенерируйте их: 
+Локализация. Отредактируйте файл /etc/locale.gen
 ~~~
-
 echo LANG=en_US.UTF-8 >> /etc/locale.conf
 locale-gen
 ln -sf /usr/share/zoneinfo/Europe/Moscow /etc/localtime
