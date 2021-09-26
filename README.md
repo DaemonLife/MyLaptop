@@ -1,5 +1,5 @@
-# MyArchLaptop
-Installing and setup Arch at Lenovo Ideapad 5 15are05 (EFI, btrfs, encrypt)
+# MyArchLaptop Installing and setup Arch at Lenovo Ideapad 5 15are05
+(EFI, btrfs, encrypt)
 
 ## Первичные шаги
 
@@ -19,66 +19,88 @@ device list
 station {device} scan
 station {device} connect {SSID}
 exit
-```
-Обновление системного времени.
-```
-timedatectl set-ntp true && timedatectl status
-```
-Клавиатура
-~~~
-loadkeys ru && loadkeys us
-~~~
-Создание разделов диска
-```
-cfdisk # создаем два раздела: EFI (sda1) и корневой типа Linux 86_64x (sda2)
-```
-Шифрование корневого раздела
-```
-cryptsetup luksFormat /dev/sda2 && cryptsetup open /dev/sda2 luks
-```
-Форматирование
-```
-mkfs.vfat -F32 -n EFI /dev/sda1 && mkfs.btrfs -L ROOT /dev/mapper/luks
-```
-Монтирование разделов
-```
-mount /dev/mapper/luks /mnt
-&&
-btrfs sub create /mnt/@ && btrfs sub create /mnt/@home
-&&
+
+
+timedatectl set-ntp true 
+
+loadkeys ru; loadkeys us
+
+
+    # modprobe dm-crypt
+
+    # modprobe dm-mod
+
+
+
+cfdisk # efi (256), boot 512, root all
+
+cryptsetup luksFormat -v -s 512 -h sha512 /dev/sda3
+cryptsetup open /dev/sda3 luks_root
+
+
+Format all partitions:
+
+    # mkfs.vfat -n "EFI" /dev/sda1
+
+    # mkfs.ext4 -L boot /dev/sda2
+
+    # mkfs.btrfs -L root /dev/mapper/luks_root
+
+
+
+mount /dev/mapper/luks_root /mnt
+
+btrfs sub create /mnt/@
+
+btrfs sub create /mnt/@home
+
 umount /mnt
-```
+
+
+
 Работа с разделами btrfs
 ```
-mount -o noatime,nodiratime,compress=zstd,space_cache,ssd,subvol=@ /dev/mapper/luks /mnt
-&&
-mkdir /mnt/home
-&&
-mount -o noatime,nodiratime,compress=zstd,space_cache,ssd,subvol=@home /dev/mapper/luks /mnt/home
-```
-Монтирование EFI
-```
-mkdir /mnt/boot && mount /dev/sda1 /mnt/boot
-```
-Pacstrap:
-```
-pacstrap /mnt linux base base-devel btrfs-progs amd-ucode nano linux-firmware iwd networkmanager neovim btrfs-progs
-```
-Fstab
-```
-genfstab -U /mnt >> /mnt/etc/fstab
-````
-Конфигурация системы
-```
+mount -o noatime,nodiratime,compress=zstd,space_cache,ssd,subvol=@
+/dev/mapper/luks_root /mnt
+
+
+mkdir /mnt/home 
+
+
+mount -o noatime,nodiratime,compress=zstd,space_cache,ssd,subvol=@home
+/dev/mapper/luks /mnt/home
+
+
+
+Now mount them:
+
+
+    # mkdir /mnt/boot
+
+    # mount /dev/sda2 /mnt/boot
+
+    # mkdir /mnt/boot/efi
+
+    # mount /dev/sda1 /mnt/boot/efi
+
+
+
+    pacstrap -i /mnt base base-devel efibootmgr grub linux linux-firmare networkmanager sudo vi vim bash-completion nano
+
+
+    genfstab -U /mnt >> /mnt/etc/fstab
+
 arch-chroot /mnt
-```
+
+
 Локализация. Отредактируйте файл /etc/locale.gen, раскомментировав en_US.UTF-8 UTF-8 и другие необходимые локали (например ru_RU.UTF-8 UTF-8), после чего сгенерируйте их: 
-```
+
+
 echo LANG=en_US.UTF-8 >> /etc/locale.conf
 && locale-gen
 && ln -sf /usr/share/zoneinfo/Europe/Moscow /etc/localtime
 && hwclock --systohc
-```
+
 Запись хоста в файлы
 ```
 echo arch >> /etc/hostname
@@ -94,62 +116,46 @@ nvim /etc/hosts
 Задать пароль администратору
 ```
 passwd
-```
-Установка пакетов
-```
-pacman -S grub efibootmgr base-devel linux-headers networkmanager network-manager-applet wpa_supplicant dialog os-prober mtools dosfstools reflector git snapper bluez bluez-utils alsa-utils pulseaudio pulseaudio-bluetooth
-```
-Изменить строку в /etc/mkinitcpio.conf и добавить модуль btrfs в MODULES:
-```
-HOOKS="base keyboard udev autodetect modconf block keymap encrypt btrfs filesystems"
-```
-![image](https://user-images.githubusercontent.com/52444457/134767266-00c88cde-cd1c-4a67-908c-676140d0cb07.png)
 
-```mkinitcpio -p linux```
 
-Установка загрузчика
+nano /etc/default/grub
 
-```bootctl --path=/boot install```
+GRUB_CMDLINE_LINUX="cryptdevice=/dev/sda3:luks_root"
 
-Узнаать свой UUID можно с помощью этой команды:
-~~~
-blkid -s UUID -o value /dev/sda2
-~~~
-Применяем команду и создаем и заполняем файл /boot/loader/entries/arch.conf, включая свой UUID:
-```
-title Arch Linux
-linux /vmlinuz-linux
-initrd /amd-ucode.img
-initrd /initramfs-linux.img
-options cryptdevice=UUID=$(blkid -s UUID -o value /dev/nvme0n1p1):luks:allow-discards root=/dev/mapper/luks rootflags=subvol=@ rd.luks.options=discard rw
-```
-Очищаем файл boot/loader/loader.conf и добавляем свои строки:
-```
-default arch.conf
-timeout 4
-console-mode max
-editor  no
-```
-Добавляем пользователя
-```
-useradd -mG wheel {username}
-passwd {username}
-EDITOR=nvim visudo
-```
-![image](https://user-images.githubusercontent.com/52444457/134767277-1f450e84-73a0-45b8-b5c1-130a086d938a.png)
-```
-systemctl enable NetworkManager
-```
-```
-exit
-umount -R /mnt
-reboot
-```
+nano /etc/mkinitcpio.conf HOOK=(.block encrypt.....)
 
-## After install
-```
-nrfkill unblock all
-nmtui
-sudo pacmna -Syu sway
-```
+
+mkinitcpio -p linux
+
+    # grub-install --boot-directory=/boot --efi-directory=/boot/efi /dev/sda2
+
+    # grub-mkconfig -o /boot/grub/grub.cfg
+
+    # grub-mkconfig -o /boot/efi/EFI/arch/grub.cfg
+
+
 ...
+
+
+
+
+...
+
+
+
+sudo pacman -S amd-ucode
+
+# sudo grub-mkconfig -o /boot/grub/grub.cfg
+
+    $ sudo install tlp tlp-rw
+
+    $ sudo systemctl enable --now tlp.service
+
+    $ sudo systemctl mask systemd-rfkill.service
+
+    $ sudo systemctl mask systemd-rfkill.socket
+
+Run ‘tlp-stat’ and install other recommended packages
+
+
+    
