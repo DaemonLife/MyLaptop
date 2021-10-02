@@ -152,4 +152,5 @@ sudo systemctl mask systemd-rfkill.socket
 // Run ‘tlp-stat’ and install other recommended packages
 ~~~
 
+ sudo chmod u+s /usr/bin/light
     
