@@ -13,6 +13,7 @@
     /* font-family:i "Inconsolata Medium"; */
     /* font-family: Roboto, Helvetica, Arial, sans-serif; */
     font-family: Inconsolata;
+    color: @col3; 
 }
 
 window#waybar {
@@ -43,6 +44,8 @@ window#waybar {
     background-color: @col1;
     font-weight: bold;
     }
+
+/* #workspaces button */
 
 #window{
     font-weight: bold;
