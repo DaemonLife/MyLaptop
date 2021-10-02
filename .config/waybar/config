@@ -121,8 +121,4 @@
 	"on-click": "swaynag -t warning -m 'Power Menu Options' -b 'Logout' 'swaymsg exit' -b 'Restart' 'shutdown -r now' -b 'Shutdown'  'shutdown -h now' --background=#ffffff --button-background=#e5e9f0 --button-border=#e5e9f0 --border-bottom=#2e3440 --"
 	},
 
-
-
-
-
 }
