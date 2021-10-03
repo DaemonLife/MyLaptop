@@ -1,5 +1,5 @@
 # MyArchLaptop Installing and setup Arch at Lenovo Ideapad 5 15are05
-(EFI, btrfs, encrypt, grub)
+(EFI, btrfs, encrypt, no grub - bootctl)
 https://telegra.ph/Arch--EFI--btrfs-encrypted-09-22
 ## First steps
 
