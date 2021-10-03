@@ -1,17 +1,18 @@
 # MyArchLaptop Installing and setup Arch at Lenovo Ideapad 5 15are05
 (EFI, btrfs, encrypt, grub)
 https://telegra.ph/Arch--EFI--btrfs-encrypted-09-22
-## Первичные шаги
+## First steps
 
-Выключить звуки ноутбука до перезагрузки. 
+Power off terrible laptop sound 
 
 ```rmmod pcspkr```
 
-Подлкючение к Wifi. Для начала выключим блокировку модуля, если она имеется:
-
+Unblockinf wifi module
 ```nrfkill unblock wifi```
+or
+```nrfkill unblock all```
 
-Подключаемся.
+Connect to wifi
 ```
 iwctl
 help
@@ -21,7 +22,7 @@ station {device} connect {SSID}
 exit
 ```
 
-Время и раскладка клавиатуры
+Time and keys
 ```
 timedatectl set-ntp true 
 loadkeys ru; loadkeys us
@@ -31,7 +32,7 @@ loadkeys ru; loadkeys us
 cfdisk
 ```
 
-Шифрование корневого раздела
+Crypt root
 ~~~
 cryptsetup luksFormat /dev/sda2
 cryptsetup open /dev/sda2 luks
@@ -43,7 +44,7 @@ mkfs.vfat -F32 -n EFI /dev/sda1
 mkfs.btrfs -L ROOT /dev/mapper/luks
 ~~~
 
-Монтирование корня и создание пространств / и home 
+Mounting root and create btrfs subvolums 
 ~~~
 mount /dev/mapper/luks /mnt
 
@@ -53,8 +54,7 @@ btrfs sub create /mnt/@home
 umount /mnt
 ~~~
 
-
-Работа с разделами btrfs
+Mounting btrfs subvolums
 ~~~
 mkdir /mnt/home
 
@@ -62,7 +62,7 @@ mount -o noatime,nodiratime,compress=zstd,space_cache,ssd,subvol=@ /dev/mapper/l
 
 mount -o noatime,nodiratime,compress=zstd,space_cache,ssd,subvol=@home /dev/mapper/luks /mnt/home
 ~~~
-Монтирование EFI:
+Mounting EFI partition:
 ~~~
 mkdir /mnt/boot
 mount /dev/sda1 /mnt/boot
@@ -75,59 +75,62 @@ Fstab
 ~~~
 genfstab -U /mnt >> /mnt/etc/fstab
 ~~~
-## Конфигурация системы
+## System configuration
 ~~~
 arch-chroot /mnt
 ~~~
-Часовой пояс
+Timezone
 ~~~
 ln -sf /usr/share/zoneinfo/Регион/Город /etc/localtime
 hwclock --systohc
 ~~~
 
-Локализация. Отредактируйте файл /etc/locale.gen, откомментрируйте US, RU (UTF-8)
+Your locales. Edit /etc/locale.gen, uncomment US, RU (UTF-8). Next:
 ~~~
 echo LANG=en_US.UTF-8 >> /etc/locale.conf
 locale-gen
 ~~~
 
-Запись хоста в файлы
-```
+Your hostname
+~~~
 echo arch >> /etc/hostname
-
-nvim /etc/hosts
-
+~~~
+Edit /etc/hosts and add:
+~~~
 127.0.0.1  localhost
 
 ::1        localhost
 
 127.0.1.1  arch.localdomain  arch
-```
-Задать пароль администратору
-```
+~~~
+Admin password
+~~~
 passwd
-```
-Установка пакетов
+~~~
+Install programs to system (I think without grub...)
 ~~~
 pacman -S grub efibootmgr base-devel linux-headers networkmanager network-manager-applet wpa_supplicant dialog os-prober mtools dosfstools reflector git snapper bluez bluez-utils alsa-utils pulseaudio pulseaudio-bluetooth
 ~~~
-Изменить строку в /etc/mkinitcpio.conf (!!!) и добавить модуль btrfs в MODULES:
+Change file /etc/mkinitcpio.conf:
 ~~~
+...
+MODULES = (btrfs)
+...
 HOOKS="base keyboard udev autodetect modconf block keymap encrypt btrfs filesystems"
+...
 ~~~
-![720dcf76eb86db86fb180](https://user-images.githubusercontent.com/52444457/135730130-14fffe96-4267-48c0-8d82-875cbecc40fd.png)
 ~~~
 mkinitcpio -p linux
 ~~~
-##Установка загрузчика
+## Boot install
 ~~~
 bootctl --path=/boot install
 ~~~
-Узнаем свой UUID
+Check your UUID
 ~~~
 blkid -s UUID -o value /dev/sda2
 ~~~
-Создаем и заполняем файл /boot/loader/entries/arch.conf, включая свой UUID (для удобства: blkid -s UUID -o value /dev/sda2 >> /boot/loader/entries/arch.conf):
+Create file /boot/loader/entries/arch.conf, including UUID (It is simple: blkid -s UUID -o value /dev/sda2 >> /boot/loader/entries/arch.conf):
 ~~~
 title Arch Linux
 linux /vmlinuz-linux
@@ -135,14 +138,14 @@ initrd /amd-ucode.img
 initrd /initramfs-linux.img
 options cryptdevice=UUID=<UUID-OF-ROOT-PARTITION>:luks:allow-discards root=/dev/mapper/luks rootflags=subvol=@ rd.luks.options=discard rw
 ~~~
-Очищаем файл boot/loader/loader.conf и добавляем свои строки:
+Change file boot/loader/loader.conf:
 ~~~
 default arch.conf
 timeout 4
 console-mode max
 editor  no
 ~~~
-Добавляем пользователя
+Add user
 ~~~
 useradd -mG wheel {username}
 passwd {username}
