@@ -62,8 +62,6 @@ mount -o noatime,nodiratime,compress=zstd,space_cache,ssd,subvol=@ /dev/mapper/l
 
 mount -o noatime,nodiratime,compress=zstd,space_cache,ssd,subvol=@home /dev/mapper/luks /mnt/home
 ~~~
-
-
 Монтирование EFI:
 ~~~
 mkdir /mnt/boot
@@ -77,7 +75,7 @@ Fstab
 ~~~
 genfstab -U /mnt >> /mnt/etc/fstab
 ~~~
-##Конфигурация системы
+## Конфигурация системы
 ~~~
 arch-chroot /mnt
 ~~~
@@ -114,6 +112,9 @@ passwd
 pacman -S grub efibootmgr base-devel linux-headers networkmanager network-manager-applet wpa_supplicant dialog os-prober mtools dosfstools reflector git snapper bluez bluez-utils alsa-utils pulseaudio pulseaudio-bluetooth
 ~~~
 Изменить строку в /etc/mkinitcpio.conf (!!!) и добавить модуль btrfs в MODULES:
+~~~
+HOOKS="base keyboard udev autodetect modconf block keymap encrypt btrfs filesystems"
+~~~
 ![720dcf76eb86db86fb180](https://user-images.githubusercontent.com/52444457/135730130-14fffe96-4267-48c0-8d82-875cbecc40fd.png)
 ~~~
 mkinitcpio -p linux
