@@ -56,6 +56,7 @@ window#waybar {
 
 #tray {
     background-color: @col4;
+    margin-right: 3px;
 }
 
 #custom-sep{
@@ -112,6 +113,7 @@ window#waybar {
 
 #custom-power{
     background-color: @col1;
-    margin-right: -8
-}
+    margin-right: -6;
+    font-size: 12;
 
+}
