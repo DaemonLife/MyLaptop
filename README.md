@@ -236,40 +236,31 @@ mkinitcpio -p linux
 Check your UUID
 
 ~~~
-
 blkid -s UUID -o value /dev/sda2
 
-~~~
-
 blkid -s UUID -o value /dev/sda2 >> /etc/default/grub
-
 ~~~
 
 Change xxxx to your UUID
 
 ~~~
-
 GRUB_CMDLINE_LINUX="cryptdevice=UUID=xxxx:cryptroot"
-
 ~~~
 
 
 Install grub
 
 ~~~
-
 grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB
 
 
 grub-mkconfig -o /boot/grub/grub.cfg
-
 ~~~
 
 
 Add user
 
 ~~~
-
 useradd -mG wheel {username}
 
 passwd {username}
@@ -277,11 +268,9 @@ passwd {username}
 EDITOR=nvim visudo
 
 ~~~
-
-![270f12c4b9b0c6b946659](https://user-images.githubusercontent.com/52444457/135730210-da2931b0-83f2-44db-b522-8712537a0d3d.png)
+![135730210-da2931b0-83f2-44db-b522-8712537a0d3d](https://user-images.githubusercontent.com/52444457/136027126-a52079ac-54a8-424c-99b6-0d3f34ade081.png)
 
 ~~~
-
 systemctl enable NetworkManager
 
 sudo chmod u+s /usr/bin/light # для яркости экрана на Sway
@@ -291,7 +280,6 @@ exit
 # umount -R /mnt
 
 reboot
-
 ~~~ 
 
 
