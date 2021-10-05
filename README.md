@@ -268,7 +268,7 @@ passwd {username}
 EDITOR=nvim visudo
 
 ~~~
-Uncomment Alows members of the sys group to run...
+Uncomment Alows people in group wheel...
 ![135730210-da2931b0-83f2-44db-b522-8712537a0d3d](https://user-images.githubusercontent.com/52444457/136027126-a52079ac-54a8-424c-99b6-0d3f34ade081.png)
 
 ~~~
