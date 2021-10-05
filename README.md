@@ -4,8 +4,6 @@ Linux
 
 (EFI, btrfs, encrypt, grub)
 
-https://telegra.ph/Arch--EFI--btrfs-encrypted-09-22
-
 ## First steps
 
 
