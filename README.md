@@ -241,7 +241,7 @@ blkid -s UUID -o value /dev/sda2
 blkid -s UUID -o value /dev/sda2 >> /etc/default/grub
 ~~~
 
-Change xxxx to your UUID
+Change xxxx to your UUID in /etc/default/grub
 
 ~~~
 GRUB_CMDLINE_LINUX="cryptdevice=UUID=xxxx:cryptroot"
