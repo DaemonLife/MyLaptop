@@ -274,8 +274,6 @@ Uncomment Allow people in group wheel...
 ~~~
 systemctl enable NetworkManager
 
-sudo chmod u+s /usr/bin/light # для яркости экрана на Sway
-
 exit
 
 # umount -R /mnt
@@ -284,3 +282,46 @@ reboot
 ~~~ 
 
 
+## Post install
+~~~
+pacman -Syu sway waybar wofi mako kitty swayidle swaylock playerctl pavucontrol udiskie wl-clipboard clipman light tlp tlp-rdw smartmontools xorg gnome-tools nautilus
+sudo chmod u+s /usr/bin/light
+~~~
+Adequate touchpad, mouse 
+~~~
+gsettings set org.gnome.desktop.peripherals.touchpad tap-to-click true
+gsettings set org.gnome.desktop.peripherals.touchpad tap-and-drag false
+gsettings set org.gnome.desktop.peripherals.mouse accel-profile adaptive
+~~~
+Installing Vim-Plug plugin
+~~~
+sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
+       https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+~~~
+Run this command in nvim
+~~~
+:PlugInstall
+~~~
+Arc theme, qogir icons and cursor.
+~~~
+sudo pacman -S arc-gtk-theme
+mkdir ~/.themes ~/.icons
+cd ~/Downloads && git clone https://github.com/vinceliuice/Qogir-icon-theme.git
+cd ~/Downloads/Qogir-icon-theme && ./install.sh -d "/home/$(whoami)/.icons"
+gsettings set org.gnome.desktop.interface gtk-theme Arc-Dark-solid
+gsettings set org.gnome.desktop.interface icon-theme Qogir-dark
+gsettings set org.gnome.desktop.interface cursor-theme Qogir-dark
+~~~
+Time to zzZsh setup
+~~~
+No | sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+git clone https://github.com/zsh-users/zsh-completions ${ZSH_CUSTOM:=~/.oh-my-zsh/custom}/plugins/zsh-completions
+git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+sed -i 's/ZSH_THEME=\".*\"/ZSH_THEME=\"gentoo\"/g' ~/.zshrc
+sed -i 's/plugins\=(.*)/plugins\=(git\ zsh-autosuggestions\ zsh-completions\ zsh-syntax-highlighting)/g' ~/.zshrc
+echo 'alias vi="nvim"' >> ~/.zshrc
+echo 'alias rg="ranger"' >> ~/.zshrc
+chsh -s $(which zsh)
+sudo chsh -s $(which zsh)
+~~~
