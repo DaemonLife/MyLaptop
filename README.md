@@ -233,7 +233,7 @@ mkinitcpio -p linux
 
 ## Boot install
 
-Check your UUID
+Check your UUID (writed in /etc/default/grub for copy convenience)
 
 ~~~
 blkid -s UUID -o value /dev/sda2
