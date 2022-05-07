@@ -1,13 +1,9 @@
 # MyArchLaptop Installing and setup Arch at Lenovo Ideapad 5 15are05
 
-(EFI, btrfs, encrypt, grub)
-
 ## First steps
-
 
 Power off terrible laptop sound 
 ```rmmod pcspkr```
-
 
 Unblockinf wifi module
 ```nrfkill unblock wifi```
@@ -23,6 +19,8 @@ station {device} scan
 station {device} connect {SSID}
 exit
 ```
+
+## Run Archinstall or...
 
 Time and keys
 ```
@@ -173,7 +171,7 @@ reboot
 
 ## Post install
 ~~~
-pacman -Syu sway waybar wofi mako kitty swayidle swaylock playerctl pavucontrol udiskie wl-clipboard clipman light tlp tlp-rdw smartmontools xorg gnome-tools nautilus
+pacman -Syu sway waybar rofi mako swayidle swaylock playerctl pavucontrol udiskie wl-clipboard clipman light tlp tlp-rdw smartmontools xorg gnome-tools
 sudo chmod u+s /usr/bin/light
 ~~~
 
@@ -197,11 +195,9 @@ Run this command in nvim
 
 Arc theme, qogir icons and cursor.
 ~~~
-sudo pacman -S arc-gtk-theme
 mkdir ~/.themes ~/.icons
 cd ~/Downloads && git clone https://github.com/vinceliuice/Qogir-icon-theme.git
 cd ~/Downloads/Qogir-icon-theme && ./install.sh -d "/home/$(whoami)/.icons"
-gsettings set org.gnome.desktop.interface gtk-theme Arc-Dark-solid
 gsettings set org.gnome.desktop.interface icon-theme Qogir-dark
 gsettings set org.gnome.desktop.interface cursor-theme Qogir-dark
 ~~~
@@ -218,4 +214,12 @@ echo 'alias vi="nvim"' >> ~/.zshrc
 echo 'alias rg="ranger"' >> ~/.zshrc
 chsh -s $(which zsh)
 sudo chsh -s $(which zsh)
+~~~
+
+Rofi themes
+~~~
+git clone --depth=1 https://github.com/adi1090x/rofi.git
+cd rofi
+chmod +x setup.sh
+./setup.sh
 ~~~
