@@ -1,12 +1,12 @@
 {
     "layer": "top",
     "position": "top", 
-    "height": 5,
+    "height": 20,
     "modules-left": ["sway/workspaces"],
 
-    "modules-center": ["custom/parag2", "custom/parag3", "sway/window", "custom/parag3","custom/parag2"],
+    "modules-center": ["sway/window"],
 
-    "modules-right": ["tray", "custom/sep", "sway/language", "custom/sep", "idle_inhibitor", "bluetooth", "network", "custom/sep", "pulseaudio", "battery","custom/sep", "clock", "custom/power"],
+    "modules-right": ["tray", "custom/sep", "sway/language", "custom/sep", "idle_inhibitor", "custom/sep", "network", "custom/sep", "pulseaudio", "custom/sep", "battery", "custom/sep", "clock", "custom/sep", "custom/power"],
 
 
 
@@ -16,18 +16,13 @@
 	"all-outputs": true,
 	"format": "{icon}",
  	"persistent_workspaces": {
- 		"1": [],
- 		"2": [],
- 		"3": [],
-                "4": [],
-                "5": [],
-	},
+        },
        	"format-icons": {
-       		"1": "lap",
-       		"2": "dev",
-       		"3": "www",
-      		"4": "fun",
-       		"5": "tor",
+       		"1": "1",
+       		"2": "2",
+       		"3": "3",
+      		"4": "4",
+       		"5": "5",
        		"6": "6",
       		"7": "7",
        		"8": "8",
@@ -36,24 +31,28 @@
         }
     },
 
-    "tray": {
-        /* "spacing": 10, */
+    "sway/window": {
+        
     },
-    
+
+    "tray": {
+        "spacing": 10,
+    },
+
     "idle_inhibitor": {
         "format": "{icon}",
         "format-icons": {
-            "activated": "",
-            "deactivated": ""
+            "activated": "",
+            "deactivated": ""
         }
     },
-    
+
     "bluetooth": {
         "format": "{icon}",
         "format-alt": "{icon}",
         "interval": 30,
         "format-icons": {
-            "enabled": "",
+            "enabled": "",
             "disabled": ""
         },
         "tooltip-format": " {} ",
@@ -61,7 +60,7 @@
     },
     
     "custom/sep": {
-        "format": "|",
+        "format": " ",
     },
     
     "sway/language": {
@@ -71,7 +70,8 @@
     
     "clock": {
        	"tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
-       	"format": "{:%R}"
+       	"format": "{:%R}",
+        "on-click": "exec gnome-calendar",
     },
 
     "battery": {
@@ -81,43 +81,49 @@
             "critical": 15
         },
         "interval": 30,
-        "format": "{capacity}",
-        "format-charging": "{capacity}",
-        "format-plugged": "{capacity}",
+        "format": "{icon} {capacity}%",
+        "format-charging": "{icon} +{capacity}%",
+        "format-plugged": "{capacity}%",
         "format-alt": "{time} {icon}",
         "format-icons": ["", "", "", "", ""],
         "on-click": "gnome-power-statistics",
     },
 
+
     "network": {
-            "format-wifi": "",
-            "format-ethernet": "{ifname}: {ipaddr}/{cidr} ",
-        "format-linked": "{ifname} (No IP)",
-        "format-disconnected": "",
-        "on-click": "nmcli dev wifi rescan && kitty -- zsh -c nmtui"
+        // "interface": "wlp2*", // (Optional) To force the use of this interface
+        "format-wifi": "",
+        "format-ethernet": " {ipaddr}/{cidr}",
+        "format-linked": " (No IP)",
+        "format-disconnected": "睊 Disconnected",
+        "format-alt": " {ipaddr}/{cidr}",
+        "on-click-right": "nmcli dev wifi rescan && gnome-terminal -- zsh -c nmtui",
     },
 
-    "pulseaudio": {
-		"format": "{volume}",
-        	"format-muted": "0",
+"pulseaudio": {
+        "format": "{icon}{volume}%{format_source}",
+        "format-bluetooth": "{icon} {volume}% {format_source}",
+        "format-bluetooth-muted": "   {volume}% {format_source}",
+        "format-muted": "{format_source}",
+        "format-source": " mic",
+        "format-source-muted": "",
         "format-icons": {
-            "headphone": "",
-            "hands-free": "",
-            "headset": "",
-            "phone": "",
-            "portable": "",
-            "car": "",
-            "default": ["", "", ""]
+            "headphone": " ",
+            "hands-free": " ",
+            "headset": " ",
+            "phone": " ",
+            "portable": " ",
+            "car": " ",
+            "default": [" ", " ", " "]
         },
-        "on-click": "pavucontrol"
-    },
-    "custom/weather": {
-        "exec": "curl 'https://wttr.in/?format=1'",
-        "interval": 3600
+        "tooltip-format": "{desc}, {volume}%",
+        "on-click": "pavucontrol",
+        "on-click-right": "pactl set-source-mute @DEFAULT_SOURCE@ toggle",
+        "on-click-middle": "pavucontrol"
     },
 
     "custom/power": {
-        "format": "   ",
+        "format": "    ",
 	"on-click": "swaynag -t warning -m 'Power Menu Options' -b 'Logout' 'swaymsg exit' -b 'Restart' 'shutdown -r now' -b 'Shutdown'  'shutdown -h now' --background=#ffffff --button-background=#e5e9f0 --button-border=#e5e9f0 --border-bottom=#2e3440 --"
 	},
 
