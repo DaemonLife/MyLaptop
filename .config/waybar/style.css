@@ -1,100 +1,78 @@
-@define-color col1 #bf616a;
-@define-color col2 #00afb9;
-@define-color col3 #faf9f9;
-@define-color col4 #2e3440;
-@define-color col5 #0E606B;
-@define-color col6 #FFC24B;
-
+@define-color darkest #101010;
+@define-color dark #101010;
+@define-color white #f5f5f5;
+@define-color accent #42A5F5;
 
 * {
+    color: @white;
     border: none;
     /* border-radius: 0; */
-    /* font-family: "Ubuntu Nerd Font"; */
+    font-family: "Ubuntu Nerd Font";
     /* font-family:i "Inconsolata Medium"; */
     /* font-family: Roboto, Helvetica, Arial, sans-serif; */
-    font-family: Inconsolata;
-    color: @col3; 
+    /* font-family: Inconsolata; */
+    /* font-family: Hack; */
 }
 
 window#waybar {
-    background-color: #2e3440
+    background-color: @darkest;
     
 }
 
-#language, #idle_inhibitor, #bluetooth, #network, #pulseaudio, #battery, #date, #clock, #custom-sep{
-    /* margin-right: 3px; */
-    /* margin-left: 3px; */
-    padding: 0 4 0 4;
+#language, #idle_inhibitor, #bluetooth, #network, #pulseaudio, #battery, #date, #clock, #custom-sep, #tray {
+    padding: 0 5 0 5;
     font-size: 12px;
     font-weight: bold;
-    color: @col3;
 }
 
 #workspaces button {
-    background-color: @col4;
     font-weight: bold;
     margin: 0 0 0 0;
     border-radius: 0;
-    padding-right: 10;
-    padding-left: 10;
+    padding-right: 5;
+    padding-left: 5;
     font-size: 12px;
-
 }
+
 #workspaces button.focused {
-    background-color: @col1;
+    background-color: @accent;
     font-weight: bold;
-    }
+}
 
 /* #workspaces button */
 
 #window{
     font-weight: bold;
     padding: 0 10 0 10;
-    background-color: @col1; 
-    color: @col3;
+    background-color: @darkest; 
 }
 
 #tray {
-    background-color: @col4;
-    margin-right: 3px;
+    /* margin-right: 3px; */
 }
 
 #custom-sep{
-    background-color: @col4;
     font-weight: bolder;
     padding: 0 0 0 0
 }
 
 #language{
-    background-color: @col4;
     margin-top: -1
 }
-
 #idle_inhibitor{
-    background-color: @col4;
 }
-
 #bluetooth{
-    background-color: @col4;
-    /* color: #5e81ac; */
 }
-
 #network {
-    background-color: @col4;
 }
 #network.disconnected {
-    color: @col1;
 }
-
 #pulseaudio{
-    background-color: @col4;
 }
-
 #battery{
-    background-color: @col4;
 } 
 #battery.warning:not(.charging) {
-    color: white;
+    color: @white;
     animation-name: blink;
     animation-duration: 0.5s;
     animation-timing-function: linear;
@@ -103,17 +81,20 @@ window#waybar {
 }
 @keyframes blink {
     to {
-        color: @col1;
+        color: @accent;
     }
 }
 
 #clock {
-    background-color: @col4;
+    padding-top: 2;
 }
 
 #custom-power{
-    background-color: @col1;
-    margin-right: -6;
+    margin-left: -9;
     font-size: 12;
+}
 
+#custom-power, #battery, #network, #idle_inhibitor, #tray{
+}
+#clock, #pulseaudio, #bluetooth, #language{
 }
