@@ -78,7 +78,7 @@ Fstab
 genfstab -U /mnt >> /mnt/etc/fstab
 ~~~
 
-## System configuration
+### System configuration
 ~~~
 arch-chroot /mnt
 ~~~
@@ -132,7 +132,7 @@ HOOKS="base keyboard udev autodetect modconf block keymap encrypt btrfs filesyst
 mkinitcpio -p linux
 ~~~
 
-## Boot install
+### Boot install
 Check your UUID (writed in /etc/default/grub for copy convenience)
 ~~~
 blkid -s UUID -o value /dev/sda2
