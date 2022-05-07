@@ -1,6 +1,6 @@
 # MyArchLaptop Installing and setup Arch at Lenovo Ideapad 5 15are05
 
-## First steps
+## 1. First steps
 
 Power off terrible laptop sound 
 ```rmmod pcspkr```
@@ -20,7 +20,7 @@ station {device} connect {SSID}
 exit
 ```
 
-## Run Archinstall or...
+## 2. Run Archinstall or...
 
 Time and keys
 ```
@@ -78,7 +78,7 @@ Fstab
 genfstab -U /mnt >> /mnt/etc/fstab
 ~~~
 
-### System configuration
+### 2.1 System configuration
 ~~~
 arch-chroot /mnt
 ~~~
@@ -132,7 +132,7 @@ HOOKS="base keyboard udev autodetect modconf block keymap encrypt btrfs filesyst
 mkinitcpio -p linux
 ~~~
 
-### Boot install
+### 2.2 Boot install
 Check your UUID (writed in /etc/default/grub for copy convenience)
 ~~~
 blkid -s UUID -o value /dev/sda2
@@ -169,7 +169,7 @@ exit
 reboot
 ~~~ 
 
-## Post install
+## 3. Post install
 ~~~
 pacman -Syu sway waybar rofi mako swayidle swaylock playerctl pavucontrol udiskie wl-clipboard clipman light tlp tlp-rdw smartmontools xorg gnome-tools
 sudo chmod u+s /usr/bin/light
