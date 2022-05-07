@@ -1,8 +1,14 @@
+
 set expandtab
 " set smarttab
 " set tabstop=4
 set softtabstop=4
 set shiftwidth=4
+
+
+
+
+
 set clipboard=unnamedplus
 set cursorline
 set scrolloff=4
@@ -47,6 +53,14 @@ map <F10> :PencilSoft<CR
 if (has('termguicolors'))
   set termguicolors
 endif
+" colorscheme arc
+colorscheme material
+let g:material_terminal_italics = 1
+let g:material_theme_style = 'darker'
+set background=dark
+let g:lightline = {
+      \ 'colorscheme': 'one',
+      \ }
 
 set keymap=russian-jcukenwin
 set iminsert=0
@@ -78,13 +92,5 @@ Plug 'nathanaelkane/vim-indent-guides'
 Plug 'mzlogin/vim-markdown-toc'
 Plug 'kaicataldo/material.vim', { 'branch': 'main' }
 Plug 'reedes/vim-pencil'
-Plug 'arcticicestudio/nord-vim'
-Plug 'ap/vim-css-color'
 
 call plug#end()
-
-colorscheme nord
-let g:lightline = {
-    \'colorscheme': 'one',
-      \ }
-
