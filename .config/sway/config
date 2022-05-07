@@ -2,45 +2,48 @@
 #
 # include colorscheme
 
+exec lxpolkit
+exec systemctl --user import-environment
+exec libinput-gestures-setup start
+
+#
+# Status Bar:
+#
+
 # xwayland disable
 
-
-exec systemctl --user import-environment DISPLAY WAYLAND_DISPLAY SWAYSOCK
-exec hash dbus-update-activation-environment 2>/dev/null && \
-     dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK
-
-
 # Read `man 5 sway` for a complete reference.
-font pango: powerline
-exec wl-paste -t text --watch clipman store
+# font pango:powerline
+# font pango:PressStart
+# font pango:ttf-dejavu
+font pango:SourceCodePro Medium 14
+# exec cd /home/user/SafeEyes && python3 -m safeeyes
 
 # gapss and borders
-gaps horizontal 0 
-gaps vertical 0 
-gaps top 0 
-gaps right 0 
-gaps bottom 0 
-gaps left 0
-gaps outer 4
-gaps inner 7
 smart_gaps on
+# gaps outer 4
+# gaps inner 8
 
 # border artean windows
 # hide_edge_borders both
-default_border pixel 5
-titlebar_border_thickness 0
+smart_borders on
+default_border pixel 4
+# titlebar_border_thickness 0
+
+default_floating_border none
 
 # idki
-client.focused          #bf616a #bf616a #bf616a #bf616a   
-client.focused_inactive #2E3440 #2E3440 #2E3440 #2E3440
-client.unfocused        #2E3440 #2E3440 #2E3440 #2E3440
-client.urgent           #ebcb8b #ebcb8b #2e3440 #8fbcbb   #ebcb8b
+client.focused          #84a0c6 #84a0c6 #eceff4 #84a0c6   
+client.focused_inactive #2E3440 #2E3440 #eceff4 #2E3440
+client.unfocused        #2E3440 #2E3440 #eceff4 #2E3440
+
+client.urgent           #2E3440 #2E3440 #2E3440 #2E3440
 
 ### Variables
-set $term kitty
+set $term gnome-terminal
 # Logo key. Use Mod1 for Alt.
 set $mod Mod4
-set $menu wofi --show=drun 
+# set $menu wofi #--show=drun 
 # Home row direction keys, like vim
 set $left h
 set $down j
@@ -49,27 +52,30 @@ set $right l
 
 ### Output configuration
 # swaymsg -t get_outputs
-# output eDP-1 pos 0 0 res 1920x1080
+
 output eDP-1 {
-    pos 0 200 res 1920x1080
+    # msk
+    pos 1920 300 res 1920x1080@60.001Hz
+    # gg
+    # pos 0 0 res 1920x1080@60.001Hz
     scale 1
-    # background ~/wallpaper.png fill
+    adaptive_sync on
 }
 output HDMI-A-1 {
-    pos 1920 0 res 1920x1080@74.973Hz
-    # background ~/wallpaper.png fill
+    # msk
+    pos 0 0 res 1920x1080@74.973Hz
+    # gg
+    # pos 1920 0 res 1920x1080@60.000Hz
+    adaptive_sync on
 }
-# output HDMI-A-1 pos 1920 0 res 1920x1080
-
 
 workspace 1 output eDP-1
 workspace 2 output HDMI-A-1
 workspace 3 output HDMI-A-1
 workspace 4 output HDMI-A-1
 
-
 # wallpapers
-output * bg /home/user/Pictures/Wallpapers/img2.jpg fill
+output * bg /home/user/Pictures/Wallpapers/wall.jpg fill
 
 input "type:keyboard" {
     xkb_layout us,ru
@@ -87,7 +93,7 @@ input "1267:12608:ELAN0001:00_04F3:3140_Touchpad" {
    }
 
 # Change cursor
-seat seat0 xcursor_theme Sunset-cursors 25
+seat seat0 xcursor_theme Twilight-cursors 25
 
 # Disable IDLe
 # xwayland version
@@ -137,25 +143,26 @@ bindsym XF86AudioStop exec playerctl stop
 
 # Other
 # bindsym XF86Calculator exec gnome-calculator
-bindsym --to-code $mod+Shift+f exec MOZ_ENABLE_WAYLAND=1 firefox
+bindsym --to-code $mod+Shift+f exec firefox
+bindsym --to-code $mod+Shift+t exec thunar
 
 # hide_edge_borders smart
 # smart_borders on
 
 exec swayidle -w \
     timeout 300 'swaylock -f -c 000000' \
-    timeout 305 'swaymsg "output * dpms off"' \
+    timeout 350 'swaymsg "output * dpms off"' \
         resume 'swaymsg "output * dpms on"' \
-    before-sleep 'swaylock -f -c 000000'
+    before-sleep 'swaylock -c 000000'
 
-    bindsym --to-code $mod+P exec swaylock -f -c 000000
+    bindsym --to-code $mod+P exec swaylock -c 000000 
 
     # Start a terminal
     bindsym --to-code $mod+Return exec $term
     # Kill focused window
-    bindsym --to-code $mod+Shift+q kill
+    bindsym --to-code $mod+q kill
     # Start your launcher
-    bindsym --to-code $mod+d exec $menu
+    bindsym --to-code $mod+d exec ~/.config/rofi/bin/launcher_text 
     # mouse button for dragging.
     floating_modifier $mod normal
     # Reload the configuration file
@@ -201,6 +208,11 @@ exec swayidle -w \
     bindsym --to-code $mod+8 workspace number 8
     bindsym --to-code $mod+9 workspace number 9
     bindsym --to-code $mod+0 workspace number 10
+    
+    bindsym --to-code Ctrl+$mod+Right workspace next
+    bindsym --to-code Ctrl+$mod+Left workspace prev
+
+
     # Move focused container to workspace
     bindsym --to-code $mod+Shift+1 move container to workspace number 1
     bindsym --to-code $mod+Shift+2 move container to workspace number 2
@@ -275,25 +287,24 @@ mode "resize" {
 }
 bindsym $mod+r mode "resize"
 
-#
-# Status Bar:
-#
 bar {
-	swaybar_command waybar
+    swaybar_command waybar
 }
 
-include /etc/sway/config.d/*
-
-
+# include /etc/sway/config.d/*
 
 # Bind App to workspace
 # Check class by : xprop
 # swaymsg -t get_tree
-assign [class="Spotify"] 1
-assign [class="Telegram"] 1
+# assign [class="Spotify"] 1
+# assign [class="Telegram"] 1
 
+# for running gnome wayland apps. Install polkit-gnome! 
+# exec systemctl --user import-environment
+exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 exec udiskie -a -n #-t
 
 # assign [app_id="opacity"] 1
 # exec python3 ~/.config/sway/scripts/opacity.py
  
+exec wl-paste -t TEXT
