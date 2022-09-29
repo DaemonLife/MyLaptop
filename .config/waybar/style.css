@@ -7,7 +7,7 @@
     color: @white;
     border: none;
     /* border-radius: 0; */
-    font-family: "Ubuntu Nerd Font";
+    font-family: "FreeMono Bold";
     /* font-family:i "Inconsolata Medium"; */
     /* font-family: Roboto, Helvetica, Arial, sans-serif; */
     /* font-family: Inconsolata; */
@@ -16,7 +16,6 @@
 
 window#waybar {
     background-color: @darkest;
-    
 }
 
 #language, #idle_inhibitor, #bluetooth, #network, #pulseaudio, #battery, #date, #clock, #custom-sep, #tray {
@@ -29,8 +28,7 @@ window#waybar {
     font-weight: bold;
     margin: 0 0 0 0;
     border-radius: 0;
-    padding-right: 5;
-    padding-left: 5;
+    padding: 0 5 0 5;
     font-size: 12px;
 }
 
@@ -43,6 +41,7 @@ window#waybar {
 
 #window{
     font-weight: bold;
+    font-size: 15px;
     padding: 0 10 0 10;
     background-color: @darkest; 
 }
