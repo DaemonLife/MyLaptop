@@ -1,14 +1,12 @@
 {
     "layer": "top",
     "position": "top", 
-    "height": 20,
+    "height": 15,
     "modules-left": ["sway/workspaces"],
 
     "modules-center": ["sway/window"],
 
     "modules-right": ["tray", "custom/sep", "sway/language", "custom/sep", "idle_inhibitor", "custom/sep", "network", "custom/sep", "pulseaudio", "custom/sep", "battery", "custom/sep", "clock", "custom/sep", "custom/power"],
-
-
 
 // Modules configuration
     "sway/workspaces": {
@@ -32,7 +30,6 @@
     },
 
     "sway/window": {
-        
     },
 
     "tray": {
@@ -124,7 +121,6 @@
 
     "custom/power": {
         "format": "    ",
-	"on-click": "swaynag -t warning -m 'Power Menu Options' -b 'Logout' 'swaymsg exit' -b 'Restart' 'shutdown -r now' -b 'Shutdown'  'shutdown -h now' --background=#ffffff --button-background=#e5e9f0 --button-border=#e5e9f0 --border-bottom=#2e3440 --"
-	},
-
+    "on-click": "swaynag -t warning -m 'Power Menu Options' -b 'Logout' 'swaymsg exit' -b 'Restart' 'shutdown -r now' -b 'Shutdown'  'shutdown -h now' --background=#101010 --button-background=#101010 --button-border=#ffffff --border-bottom=#101010 --button-text=#f5f5f5 --text=#f5f5f5"
+    },
 }
