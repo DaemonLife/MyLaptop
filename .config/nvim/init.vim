@@ -1,88 +1,10 @@
+let g:plugged_home = '~/.config/nvim/plugged'
 
-set expandtab
-" set smarttab
-" set tabstop=4
-set softtabstop=4
-set shiftwidth=4
+" Plugins List
+call plug#begin(g:plugged_home)
 
-
-
-
-
-set clipboard=unnamedplus
-set cursorline
-set scrolloff=4
-
-"set spell spelllang=ru_ru,en_us
-map <F8> :setlocal spell! spelllang=ru,en_us<CR>
-"Можно добавлять слова в словарь, используя zg или удалять, используя zug
-set number
-set foldcolumn=0
-syntax on
-set noerrorbells
-set novisualbell
-set history=200
-set mouse=i
-set wrap
-set linebreak
-set nocompatible
-set ruler
-set autoindent
-
-"Настройка поиска
-set ignorecase
-set smartcase
-set hlsearch
-set incsearch "Показывать первое вхождение
-set encoding=utf8
-set ffs=unix,dos,mac
-let g:indent_guides_enable_on_vim_startup = 1
-
-"Копирование текста в буфер обмена.Ctrl+@
-" xnoremap <silent> <C-@> :w !wl-copy<CR><CR>
-
-nnoremap <leader>n :NERDTreeFocus<CR>
-nnoremap <C-n> :NERDTree<CR>
-nnoremap <C-t> :NERDTreeToggle<CR>
-nnoremap <C-f> :NERDTreeFind<CR>:
-
-map <F9> :Goyo<CR>:PencilSoft<CR>
-map <F10> :PencilSoft<CR
-
-"Цветовая схема
-if (has('termguicolors'))
-  set termguicolors
-endif
-" colorscheme arc
-colorscheme material
-let g:material_terminal_italics = 1
-let g:material_theme_style = 'darker'
-set background=dark
-let g:lightline = {
-      \ 'colorscheme': 'one',
-      \ }
-
-set keymap=russian-jcukenwin
-set iminsert=0
-set imsearch=0
-
-set nocompatible
-filetype plugin on       " may already be in your .vimrc
-
-augroup pencil
-    autocmd!
-    autocmd FileType markdown,mkd call pencil#init()
-    autocmd FileType text         call pencil#init()
-augroup END
-
-
-
-
-
-"vim-plug. :PlugInstall
-call plug#begin()
-
-Plug 'preservim/nerdtree'
+" My plugins
+" Plug 'preservim/nerdtree'
 Plug 'junegunn/goyo.vim'
 Plug 'reedes/vim-pencil'
 Plug 'itchyny/lightline.vim'
@@ -91,6 +13,136 @@ Plug 'tomtom/tcomment_vim'
 Plug 'nathanaelkane/vim-indent-guides'
 Plug 'mzlogin/vim-markdown-toc'
 Plug 'kaicataldo/material.vim', { 'branch': 'main' }
-Plug 'reedes/vim-pencil'
+
+" syntax check
+Plug 'w0rp/ale'
+
+" Autocomplete
+Plug 'ncm2/ncm2'
+Plug 'roxma/nvim-yarp'
+Plug 'ncm2/ncm2-bufword'
+Plug 'ncm2/ncm2-path'
+Plug 'ncm2/ncm2-jedi'
+
+" Formater
+Plug 'Chiel92/vim-autoformat'
 
 call plug#end()
+
+filetype plugin indent on
+
+" Configurations Part
+
+" Others
+set clipboard=unnamedplus
+"set spell spelllang=ru_ru,en_us
+map <F8> :setlocal spell! spelllang=ru,en_us<CR>
+"Можно добавлять слова в словарь, используя zg или удалять, используя zug
+set keymap=russian-jcukenwin
+set iminsert=0
+set imsearch=0
+set nocompatible
+set foldcolumn=0
+set noerrorbells
+set novisualbell
+set history=200
+set wrap
+set linebreak
+set ruler
+set autoindent
+
+" UI configuration
+syntax on
+syntax enable
+set cursorline
+set scrolloff=4
+
+" colorscheme
+colorscheme material
+let g:material_terminal_italics = 1
+" let g:material_theme_style = 'darker'
+set background=dark
+let g:lightline = {
+      \ 'colorscheme': 'one',
+      \ }
+" True Color Support if it's avaiable in terminal
+if has("termguicolors")
+    set termguicolors
+endif
+
+" if has("gui_running")
+    " set guicursor=n-v-c-sm:block,i-ci-ve:block,r-cr-o:blocks
+" endif
+
+set number
+" set relativenumber
+set hidden
+set mouse=a
+set noshowmode
+set noshowmatch
+set nolazyredraw
+
+" Turn off backup
+set nobackup
+set noswapfile
+set nowritebackup
+
+" Search configuration
+set ignorecase                    " ignore case when searching
+set smartcase                     " turn on smartcase
+
+" Tab and Indent configuration
+set expandtab
+set tabstop=4
+set shiftwidth=4
+
+" vim-autoformat
+noremap <F3> :Autoformat<CR>
+
+" NCM2
+augroup NCM2
+    autocmd!
+    " enable ncm2 for all buffers
+    autocmd BufEnter * call ncm2#enable_for_buffer()
+    " :help Ncm2PopupOpen for more information
+    set completeopt=noinsert,menuone,noselect
+    " When the <Enter> key is pressed while the popup menu is visible, it only
+    " hides the menu. Use this mapping to close the menu and also start a new line.
+    inoremap <expr> <CR> (pumvisible() ? "\<c-y>\<cr>" : "\<CR>")
+    " uncomment this block if you use vimtex for LaTex
+    " autocmd Filetype tex call ncm2#register_source({
+    "           \ 'name': 'vimtex',
+    "           \ 'priority': 8,
+    "           \ 'scope': ['tex'],
+    "           \ 'mark': 'tex',
+    "           \ 'word_pattern': '\w+',
+    "           \ 'complete_pattern': g:vimtex#re#ncm2,
+    "           \ 'on_complete': ['ncm2#on_complete#omni', 'vimtex#complete#omnifunc'],
+    "           \ })
+augroup END
+
+" Ale
+let g:ale_lint_on_enter = 0
+let g:ale_lint_on_text_changed = 'never'
+let g:ale_echo_msg_error_str = 'E'
+let g:ale_echo_msg_warning_str = 'W'
+let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+let g:ale_linters = {'python': ['flake8']}
+
+" Airline
+let g:airline_left_sep  = ''
+let g:airline_right_sep = ''
+let g:airline#extensions#ale#enabled = 1
+let airline#extensions#ale#error_symbol = 'E:'
+let airline#extensions#ale#warning_symbol = 'W:'
+
+" Goyo
+map <F9> :Goyo<CR>:PencilSoft<CR>
+map <F10> :PencilSoft<CR
+
+" Pencil
+augroup pencil
+    autocmd!
+    autocmd FileType markdown,mkd call pencil#init()
+    autocmd FileType text         call pencil#init()
+augroup END
