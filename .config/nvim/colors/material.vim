@@ -50,8 +50,8 @@ endfun
 " === Color Definitions ===
 
 " Default colors
-" set background=dark
-let s:bg = { 'gui': '#263238', 'cterm': 'none' }
+set background=dark
+let s:bg = { 'gui': '#101010', 'cterm': 'none' }
 let s:fg = { 'gui': '#eeffff', 'cterm': 231 }
 let s:invisibles = { 'gui': '#65738e', 'cterm': 66 }
 let s:comments = { 'gui': '#546e7a', 'cterm': 145 }
@@ -103,7 +103,7 @@ elseif g:material_theme_style == 'ocean' || g:material_theme_style == 'ocean-com
   let s:line_numbers = { 'gui': '#3b3f51', 'cterm': 60 }
   let s:line_highlight = { 'gui': '#0a0c12', 'cterm': 0 }
 elseif g:material_theme_style == 'lighter' || g:material_theme_style == 'lighter-community'
-  " set background=light
+  set background=light
   let s:bg = { 'gui': '#fafafa', 'cterm': 'none' }
   let s:fg = { 'gui': '#90a4ae', 'cterm': 109 }
   let s:invisibles = { 'gui': '#e7eaec', 'cterm': 189 }
@@ -588,4 +588,3 @@ call s:SetHighlight('TSTagAttribute', s:purple, '', '')
 call s:SetHighlight('TSType', s:yellow, '', '')
 call s:SetHighlight('TSVariable', s:fg, '', '')
 call s:SetHighlight('TSVariableBuiltin', s:fg, '', '')
-
