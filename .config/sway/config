@@ -16,7 +16,7 @@ exec libinput-gestures-setup start
 # font pango:powerline
 # font pango:PressStart
 # font pango:ttf-dejavu
-font pango:SourceCodePro Medium 14
+font pango:FreeMono Regular 14
 # exec cd /home/user/SafeEyes && python3 -m safeeyes
 
 # gapss and borders
@@ -33,11 +33,11 @@ default_border pixel 4
 default_floating_border none
 
 # idki
-client.focused          #84a0c6 #84a0c6 #eceff4 #84a0c6   
-client.focused_inactive #2E3440 #2E3440 #eceff4 #2E3440
-client.unfocused        #2E3440 #2E3440 #eceff4 #2E3440
+client.focused          #42A5F5 #42A5F5 #42A5F5 #42A5F5   
+client.focused_inactive #101010 #101010 #101010 #101010
+client.unfocused        #101010 #101010 #101010 #101010
 
-client.urgent           #2E3440 #2E3440 #2E3440 #2E3440
+client.urgent           #101010 #101010 #101010 #101010
 
 ### Variables
 set $term gnome-terminal
@@ -55,17 +55,20 @@ set $right l
 
 output eDP-1 {
     # msk
-    pos 1920 300 res 1920x1080@60.001Hz
+    # pos 1920 300 res 1920x1080@60.001Hz
     # gg
-    # pos 0 0 res 1920x1080@60.001Hz
+    pos 0 0 res 1920x1080@60.001Hz
+    
     scale 1
     adaptive_sync on
 }
 output HDMI-A-1 {
     # msk
-    pos 0 0 res 1920x1080@74.973Hz
+    # pos 0 0 res 1920x1080@74.973Hz
+    # pos 3840 0 res 3840x2160@30.000Hz
     # gg
-    # pos 1920 0 res 1920x1080@60.000Hz
+    pos 1920 0 res 1920x1080@60.000Hz
+    
     adaptive_sync on
 }
 
@@ -75,7 +78,8 @@ workspace 3 output HDMI-A-1
 workspace 4 output HDMI-A-1
 
 # wallpapers
-output * bg /home/user/Pictures/Wallpapers/wall.jpg fill
+# output * mode 1920x1080 pos 1920 0 bg /home/user/Pictures/Wallpapers/mpv-shot0001.jpg stretch
+output * bg #101010 solid_color
 
 input "type:keyboard" {
     xkb_layout us,ru
@@ -93,15 +97,18 @@ input "1267:12608:ELAN0001:00_04F3:3140_Touchpad" {
    }
 
 # Change cursor
-seat seat0 xcursor_theme Twilight-cursors 25
+seat seat0 xcursor_theme Qogir-dark 25
 
 # Disable IDLe
 # xwayland version
 for_window [class="Celluloid"] inhibit_idle fullscreen
 # wayland vesion
 for_window [app_id="Celluloid"] inhibit_idle fullscreen
+for_window [class="mpv"] inhibit_idle fullscreen                           
+for_window [app_id="mpv"] inhibit_idle fullscreen
+for_window [class="firefox"] inhibit_idle fullscreen                           
+for_window [app_id="firefox"] inhibit_idle fullscreen
 
-#
 # Screen capture
 #
 set $screenshot 1 selected, 2 whole, 3 selected clipboard, 4 whole clipboard, 5 swappy
