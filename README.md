@@ -20,7 +20,9 @@ station {device} connect {SSID}
 exit
 ```
 
-## 1.1 Just run Archinstall and jump to chapter 3.0 - it's easy!!! or do it all suffering...
+## 1.1 The Easy Way 
+
+Just run Archinstall and jump to chapter 3.0 - it's easy!!! or do it all suffering...
 
 ## 2.0
 
