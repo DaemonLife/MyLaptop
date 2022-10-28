@@ -1,34 +1,23 @@
-# Default config for sway
-#
-# include colorscheme
+# Config for sway
+
+include colorscheme
 
 exec lxpolkit
 exec systemctl --user import-environment
 exec libinput-gestures-setup start
 
-#
-# Status Bar:
-#
-
 # xwayland disable
 
-# Read `man 5 sway` for a complete reference.
-# font pango:powerline
-# font pango:PressStart
-# font pango:ttf-dejavu
-font pango:FreeMono Regular 14
-# exec cd /home/user/SafeEyes && python3 -m safeeyes
+font pango:FreeMono Regular 15
 
 # gapss and borders
 smart_gaps on
-# gaps outer 4
-# gaps inner 8
+gaps outer 4
+gaps inner 8
 
 # border artean windows
-# hide_edge_borders both
 smart_borders on
 default_border pixel 4
-# titlebar_border_thickness 0
 
 default_floating_border none
 
@@ -43,7 +32,7 @@ client.urgent           #101010 #101010 #101010 #101010
 set $term gnome-terminal
 # Logo key. Use Mod1 for Alt.
 set $mod Mod4
-# set $menu wofi #--show=drun 
+
 # Home row direction keys, like vim
 set $left h
 set $down j
@@ -58,19 +47,17 @@ output eDP-1 {
     # pos 1920 300 res 1920x1080@60.001Hz
     # gg
     pos 0 0 res 1920x1080@60.001Hz
-    
     scale 1
     adaptive_sync on
-}
+    }
 output HDMI-A-1 {
     # msk
     # pos 0 0 res 1920x1080@74.973Hz
     # pos 3840 0 res 3840x2160@30.000Hz
     # gg
     pos 1920 0 res 1920x1080@60.000Hz
-    
     adaptive_sync on
-}
+    }
 
 workspace 1 output eDP-1
 workspace 2 output HDMI-A-1
@@ -84,7 +71,6 @@ output * bg #101010 solid_color
 input "type:keyboard" {
     xkb_layout us,ru
     xkb_options grp:win_space_toggle
-    # xkb_options grp:ctrl_shift_toggle
 	}	
 input "1267:12608:ELAN0001:00_04F3:3140_Touchpad" {
     dwt enabled	# disable-while-typing
@@ -94,23 +80,20 @@ input "1267:12608:ELAN0001:00_04F3:3140_Touchpad" {
     drag disabled
     pointer_accel 0.04
     accel_profile adaptive # flat/adaptive
-   }
+    }
 
 # Change cursor
 seat seat0 xcursor_theme Qogir-dark 25
 
 # Disable IDLe
 # xwayland version
-for_window [class="Celluloid"] inhibit_idle fullscreen
-# wayland vesion
-for_window [app_id="Celluloid"] inhibit_idle fullscreen
 for_window [class="mpv"] inhibit_idle fullscreen                           
-for_window [app_id="mpv"] inhibit_idle fullscreen
 for_window [class="firefox"] inhibit_idle fullscreen                           
+# wayland vesion
+for_window [app_id="mpv"] inhibit_idle fullscreen
 for_window [app_id="firefox"] inhibit_idle fullscreen
 
 # Screen capture
-#
 set $screenshot 1 selected, 2 whole, 3 selected clipboard, 4 whole clipboard, 5 swappy
 mode "$screenshot" {
     bindsym 1 exec 'grim -g "$(slurp)" ~/ps_$(date +"%Y%m%d%H%M%S").png', mode "default"
@@ -122,9 +105,10 @@ mode "$screenshot" {
 # back to normal: Enter or Escape
     bindsym Return mode "default"
     bindsym Escape mode "default"
-    bindsym $mod+Print mode "default"
-}
-bindsym $mod+Print mode "$screenshot"
+    bindsym Print mode "default"
+    }
+
+bindsym Print mode "$screenshot"
 
 # Brightness control
 bindsym XF86MonBrightnessUp exec light -A 10
@@ -132,8 +116,12 @@ bindsym XF86MonBrightnessDown exec light -U 10
 bindsym $mod+XF86MonBrightnessUp exec light -A 2
 bindsym $mod+XF86MonBrightnessDown exec light -U 2
 
+bindsym Alt+Up exec light -A 10
+bindsym Alt+Down exec light -U 10
+bindsym Alt+$mod+Up exec light -A 2
+bindsym Alt+$mod+Down exec light -U 2
+
 # Audio controls
-# bindsym $mod+Ctrl+p exec pavucontrol
 bindsym XF86AudioRaiseVolume exec pactl set-sink-volume 0 +5%
 bindsym XF86AudioLowerVolume exec pactl set-sink-volume 0 -5%
 bindsym XF86AudioMute exec pactl set-sink-mute 0 toggle 
@@ -144,23 +132,22 @@ bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPlay exec playerctl play-pause
 bindsym XF86AudioStop exec playerctl stop
 
+bindsym Alt+Right exec pactl set-sink-volume 0 +5%
+bindsym Alt+Left exec pactl set-sink-volume 0 -5%
+bindsym Alt+$mod+Left exec pactl set-sink-mute 0 true 
+bindsym Alt+$mod+Right exec pactl set-sink-mute 0 false 
+
 # commands for change output device
 # pactl list sinks
 # pactl set-default-sink
 
 # Other
 # bindsym XF86Calculator exec gnome-calculator
-bindsym --to-code $mod+Shift+f exec firefox
-bindsym --to-code $mod+Shift+t exec thunar
-
-# hide_edge_borders smart
-# smart_borders on
 
 exec swayidle -w \
     timeout 300 'swaylock -f -c 000000' \
     timeout 350 'swaymsg "output * dpms off"' \
-        resume 'swaymsg "output * dpms on"' \
-    before-sleep 'swaylock -c 000000'
+        resume 'swaymsg "output * dpms on"' before-sleep 'swaylock -c 000000'
 
     bindsym --to-code $mod+P exec swaylock -c 000000 
 
@@ -169,7 +156,7 @@ exec swayidle -w \
     # Kill focused window
     bindsym --to-code $mod+q kill
     # Start your launcher
-    bindsym --to-code $mod+d exec ~/.config/rofi/bin/launcher_text 
+    bindsym --to-code $mod+d exec wofi 
     # mouse button for dragging.
     floating_modifier $mod normal
     # Reload the configuration file
@@ -177,6 +164,7 @@ exec swayidle -w \
 
     # Exit sway (logs you out of your Wayland session)
     bindsym --to-code $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -b 'Yes, exit sway' 'swaymsg exit'
+
 #
 # Moving around:
 #
@@ -196,6 +184,7 @@ exec swayidle -w \
     bindsym --to-code $mod+Shift+$down move down
     bindsym --to-code $mod+Shift+$up move up
     bindsym --to-code $mod+Shift+$right move right
+
     # Ditto, with arrow keys
     bindsym --to-code $mod+Shift+Left move left
     bindsym --to-code $mod+Shift+Down move down
@@ -215,7 +204,7 @@ exec swayidle -w \
     bindsym --to-code $mod+8 workspace number 8
     bindsym --to-code $mod+9 workspace number 9
     bindsym --to-code $mod+0 workspace number 10
-    
+
     bindsym --to-code Ctrl+$mod+Right workspace next
     bindsym --to-code Ctrl+$mod+Left workspace prev
 
@@ -298,20 +287,8 @@ bar {
     swaybar_command waybar
 }
 
-# include /etc/sway/config.d/*
-
-# Bind App to workspace
-# Check class by : xprop
-# swaymsg -t get_tree
-# assign [class="Spotify"] 1
-# assign [class="Telegram"] 1
-
 # for running gnome wayland apps. Install polkit-gnome! 
-# exec systemctl --user import-environment
+exec systemctl --user import-environment
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 exec udiskie -a -n #-t
-
-# assign [app_id="opacity"] 1
-# exec python3 ~/.config/sway/scripts/opacity.py
- 
 exec wl-paste -t TEXT
