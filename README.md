@@ -2,7 +2,7 @@
 
 ## 1. First steps
 
-Power off terrible laptop sound 
+Power off a terrible laptop sound 
 ```rmmod pcspkr```
 
 Unblockinf wifi module
@@ -20,7 +20,9 @@ station {device} connect {SSID}
 exit
 ```
 
-## 2. Run Archinstall or...
+## 1.1 Just run Archinstall it's easy!!! or do it all suffering...
+
+## 2 
 
 Time and keys
 ```
@@ -171,8 +173,8 @@ reboot
 
 ## 3. Post install
 ~~~
-pacman -Syu sway waybar rofi mako swayidle swaylock playerctl pavucontrol udiskie wl-clipboard clipman light tlp tlp-rdw smartmontools xorg gnome-tools
-sudo chmod u+s /usr/bin/light
+pacman -Syu sway waybar wofi mako swayidle swaylock playerctl pavucontrol udiskie wl-clipboard clipman light tlp tlp-rdw smartmontools gnome-tools # xorg - why?? idk now sorry
+sudo chmod u+s /usr/bin/light # to have ability to changing your screen brightness
 ~~~
 
 Adequate touchpad, mouse 
@@ -193,7 +195,7 @@ Run this command in nvim
 :PlugInstall
 ~~~
 
-Arc theme, qogir icons and cursor.
+Qogir icons and cursor.
 ~~~
 mkdir ~/.themes ~/.icons
 cd ~/Downloads && git clone https://github.com/vinceliuice/Qogir-icon-theme.git
@@ -214,12 +216,4 @@ echo 'alias vi="nvim"' >> ~/.zshrc
 echo 'alias rg="ranger"' >> ~/.zshrc
 chsh -s $(which zsh)
 sudo chsh -s $(which zsh)
-~~~
-
-Rofi themes
-~~~
-git clone --depth=1 https://github.com/adi1090x/rofi.git
-cd rofi
-chmod +x setup.sh
-./setup.sh
 ~~~
