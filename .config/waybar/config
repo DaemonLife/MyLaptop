@@ -6,7 +6,7 @@
 
     "modules-center": ["sway/window"],
 
-    "modules-right": ["tray", "custom/sep", "sway/language", "custom/sep", "idle_inhibitor", "custom/sep", "network", "custom/sep", "pulseaudio", "custom/sep", "battery", "custom/sep", "clock", "custom/sep", "custom/power"],
+    "modules-right": ["tray", "custom/sep", "sway/language", "custom/sep", "idle_inhibitor", "custom/sep", "network", "custom/sep", "pulseaudio", "custom/sep", "battery", "custom/sep", "clock", "custom/sep"],
 
 // Modules configuration
     "sway/workspaces": {
@@ -39,8 +39,8 @@
     "idle_inhibitor": {
         "format": "{icon}",
         "format-icons": {
-            "activated": "",
-            "deactivated": ""
+            "activated": "Brekekekex",
+            "deactivated": ""
         }
     },
 
@@ -66,7 +66,7 @@
     },
     
     "clock": {
-       	"tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
+       	/* "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>", */
        	"format": "{:%R}",
         "on-click": "exec gnome-calendar",
     },
@@ -81,7 +81,7 @@
         "format": "{icon} {capacity}%",
         "format-charging": "{icon} +{capacity}%",
         "format-plugged": "{capacity}%",
-        "format-alt": "{time} {icon}",
+        "format-alt": "{icon} {time}",
         "format-icons": ["", "", "", "", ""],
         "on-click": "gnome-power-statistics",
     },
@@ -92,16 +92,16 @@
         "format-wifi": "",
         "format-ethernet": " {ipaddr}/{cidr}",
         "format-linked": " (No IP)",
-        "format-disconnected": "睊 Disconnected",
-        "format-alt": " {ipaddr}/{cidr}",
-        "on-click-right": "nmcli dev wifi rescan && gnome-terminal -- zsh -c nmtui",
+        "format-disconnected": "No Internet",
+        /* "format-alt": " {ipaddr}/{cidr}", */
+        "on-click": "nmcli dev wifi rescan && gnome-terminal -- zsh -c nmtui",
     },
 
 "pulseaudio": {
         "format": "{icon}{volume}%{format_source}",
         "format-bluetooth": "{icon} {volume}% {format_source}",
         "format-bluetooth-muted": "   {volume}% {format_source}",
-        "format-muted": "{format_source}",
+        "format-muted": "",
         "format-source": " mic",
         "format-source-muted": "",
         "format-icons": {
