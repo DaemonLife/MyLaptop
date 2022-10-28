@@ -1,6 +1,6 @@
 # MyArchLaptop Installing and setup Arch at Lenovo Ideapad 5 15are05
 
-## 1. First steps
+## 1.0 First steps
 
 Power off a terrible laptop sound 
 ```rmmod pcspkr```
@@ -20,9 +20,9 @@ station {device} connect {SSID}
 exit
 ```
 
-## 1.1 Just run Archinstall it's easy!!! or do it all suffering...
+## 1.1 Just run Archinstall and jump to chapter 3.0 - it's easy!!! or do it all suffering...
 
-## 2 
+## 2.0
 
 Time and keys
 ```
@@ -171,7 +171,7 @@ exit
 reboot
 ~~~ 
 
-## 3. Post install
+## 3.0 Post install
 ~~~
 pacman -Syu sway waybar wofi mako swayidle swaylock playerctl pavucontrol udiskie wl-clipboard clipman light tlp tlp-rdw smartmontools gnome-tools # xorg - why?? idk now sorry
 sudo chmod u+s /usr/bin/light # to have ability to changing your screen brightness
