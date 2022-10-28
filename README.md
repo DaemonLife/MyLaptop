@@ -30,7 +30,7 @@ timedatectl set-ntp true
 loadkeys ru; loadkeys us
 ```
 
-Создание дисков. Два раздела: EFI (типа EFI) и root (типа Linux 86_64x)
+Volumes setup: for EFI (EFI type), for root (Linux 86_64x type)
 ```
 cfdisk
 ```
