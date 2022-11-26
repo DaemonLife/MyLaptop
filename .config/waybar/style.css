@@ -1,7 +1,7 @@
-@define-color darkest #101010;
-@define-color dark #101010;
-@define-color white #f5f5f5;
-@define-color accent #42A5F5;
+@define-color darkest #121212;
+@define-color dark #121212;
+@define-color white #eeeeee;
+@define-color accent #0087af;
 
 * {
     color: @white;
@@ -32,7 +32,7 @@ window#waybar {
     font-size: 12px;
 }
 
-#workspaces button.focused {
+#workspaces button.active {
     background-color: @accent;
     font-weight: bold;
 }
