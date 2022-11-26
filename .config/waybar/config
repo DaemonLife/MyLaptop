@@ -2,14 +2,14 @@
     "layer": "top",
     "position": "top", 
     "height": 15,
-    "modules-left": ["sway/workspaces"],
+    "modules-left": ["wlr/workspaces"],
 
-    "modules-center": ["sway/window"],
+    "modules-center": ["hyprland/window"],
 
-    "modules-right": ["tray", "custom/sep", "sway/language", "custom/sep", "idle_inhibitor", "custom/sep", "network", "custom/sep", "pulseaudio", "custom/sep", "battery", "custom/sep", "clock", "custom/sep"],
+    "modules-right": ["tray", "custom/sep", "hyprland/language", "custom/sep", "idle_inhibitor", "custom/sep", "network", "custom/sep", "pulseaudio", "custom/sep", "battery", "custom/sep", "clock", "custom/sep"],
 
 // Modules configuration
-    "sway/workspaces": {
+    "wlr/workspaces": {
 	"disable-scroll": true,
 	"all-outputs": true,
 	"format": "{icon}",
@@ -29,7 +29,7 @@
         }
     },
 
-    "sway/window": {
+    "wlr/window": {
     },
 
     "tray": {
@@ -60,7 +60,7 @@
         "format": " ",
     },
     
-    "sway/language": {
+    "hyprland/language": {
         "format": "{}",
         "max-length": 58
     },
