@@ -1,19 +1,25 @@
 # Config for sway
 
-include colorscheme
-
-exec lxpolkit
+### start applications ###
+bar {
+    swaybar_command waybar
+}
 exec systemctl --user import-environment
 exec libinput-gestures-setup start
-
+exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
+exec udiskie -a -n #-t
+exec wl-paste -t TEXT
+exec mako
 # xwayland disable
+# exec waybar
+
 
 font pango:FreeMono Regular 15
 
 # gapss and borders
-smart_gaps on
-gaps outer 4
-gaps inner 8
+# smart_gaps on
+# gaps outer 4
+# gaps inner 8
 
 # border artean windows
 smart_borders on
@@ -22,41 +28,36 @@ default_border pixel 4
 default_floating_border none
 
 # idki
-client.focused          #42A5F5 #42A5F5 #42A5F5 #42A5F5   
-client.focused_inactive #101010 #101010 #101010 #101010
-client.unfocused        #101010 #101010 #101010 #101010
+client.focused #0087af #0087af #0087af #0087af   
+client.focused_inactive #0087af #0087af #0087af #0087af
+client.unfocused        #121212 #121212 #121212 #121212
 
-client.urgent           #101010 #101010 #101010 #101010
+client.urgent           #121212 #121212 #121212 #121212
 
-### Variables
-set $term gnome-terminal
 # Logo key. Use Mod1 for Alt.
 set $mod Mod4
 
-# Home row direction keys, like vim
-set $left h
-set $down j
-set $up k
-set $right l
-
-### Output configuration
-# swaymsg -t get_outputs
-
 output eDP-1 {
+    adaptive_sync on
+    
     # msk
     # pos 1920 300 res 1920x1080@60.001Hz
+    
     # gg
     pos 0 0 res 1920x1080@60.001Hz
-    scale 1
-    adaptive_sync on
+    # scale 1
+    
     }
 output HDMI-A-1 {
+    adaptive_sync on
+    
     # msk
     # pos 0 0 res 1920x1080@74.973Hz
     # pos 3840 0 res 3840x2160@30.000Hz
+    
     # gg
     pos 1920 0 res 1920x1080@60.000Hz
-    adaptive_sync on
+    
     }
 
 workspace 1 output eDP-1
@@ -66,7 +67,7 @@ workspace 4 output HDMI-A-1
 
 # wallpapers
 # output * mode 1920x1080 pos 1920 0 bg /home/user/Pictures/Wallpapers/mpv-shot0001.jpg stretch
-output * bg #101010 solid_color
+output * bg #121212 solid_color
 
 input "type:keyboard" {
     xkb_layout us,ru
@@ -78,8 +79,8 @@ input "1267:12608:ELAN0001:00_04F3:3140_Touchpad" {
     natural_scroll enabled
     middle_emulation enabled
     drag disabled
-    pointer_accel 0.04
-    accel_profile adaptive # flat/adaptive
+    pointer_accel 0.12
+    accel_profile adaptive adaptive
     }
 
 # Change cursor
@@ -147,45 +148,32 @@ bindsym Alt+$mod+Right exec pactl set-sink-mute 0 false
 exec swayidle -w \
     timeout 300 'swaylock -f -c 000000' \
     timeout 350 'swaymsg "output * dpms off"' \
-        resume 'swaymsg "output * dpms on"' before-sleep 'swaylock -c 000000'
+        resume 'swaymsg "output * dpms on"' before-sleep 'swaylock -c 000000 && swaymsg input "type:keyboard" xkb_switch_layout 0'
 
-    bindsym --to-code $mod+P exec swaylock -c 000000 
+    bindsym --to-code $mod+l exec swaylock -f -c 000000 && swaymsg input "type:keyboard" xkb_switch_layout 0
 
     # Start a terminal
-    bindsym --to-code $mod+Return exec $term
+    bindsym --to-code $mod+Return exec alacritty
     # Kill focused window
     bindsym --to-code $mod+q kill
     # Start your launcher
-    bindsym --to-code $mod+d exec wofi 
+    bindsym --to-code $mod+d exec bemenu-run -l 5 --fn freemono 40 -H 20 -W 1 
     # mouse button for dragging.
     floating_modifier $mod normal
     # Reload the configuration file
-   bindsym --to-code $mod+Shift+c reload
+   bindsym --to-code $mod+r reload
 
     # Exit sway (logs you out of your Wayland session)
-    bindsym --to-code $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -b 'Yes, exit sway' 'swaymsg exit'
+    bindsym --to-code $mod+Shift+o exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -b 'Yes, exit sway' 'swaymsg exit'
 
 #
 # Moving around:
 #
-    # Move your focus around
-    bindsym --to-code $mod+$left focus left
-    bindsym --to-code $mod+$down focus down
-    bindsym --to-code $mod+$up focus up
-    bindsym --to-code $mod+$right focus right
-    # Or use $mod+[up|down|left|right]
     bindsym --to-code $mod+Left focus left
     bindsym --to-code $mod+Down focus down
     bindsym --to-code $mod+Up focus up
     bindsym --to-code $mod+Right focus right
 
-    # Move the focused window with the same, but add Shift
-    bindsym --to-code $mod+Shift+$left move left
-    bindsym --to-code $mod+Shift+$down move down
-    bindsym --to-code $mod+Shift+$up move up
-    bindsym --to-code $mod+Shift+$right move right
-
-    # Ditto, with arrow keys
     bindsym --to-code $mod+Shift+Left move left
     bindsym --to-code $mod+Shift+Down move down
     bindsym --to-code $mod+Shift+Up move up
@@ -204,7 +192,6 @@ exec swayidle -w \
     bindsym --to-code $mod+8 workspace number 8
     bindsym --to-code $mod+9 workspace number 9
     bindsym --to-code $mod+0 workspace number 10
-
     bindsym --to-code Ctrl+$mod+Right workspace next
     bindsym --to-code Ctrl+$mod+Left workspace prev
 
@@ -266,12 +253,6 @@ mode "resize" {
     # right will grow the containers width
     # up will shrink the containers height
     # down will grow the containers height
-    bindsym $left resize shrink width 10px
-    bindsym $down resize grow height 10px
-    bindsym $up resize shrink height 10px
-    bindsym $right resize grow width 10px
-
-    # Ditto, with arrow keys
     bindsym Left resize shrink width 10px
     bindsym Down resize grow height 10px
     bindsym Up resize shrink height 10px
@@ -283,12 +264,4 @@ mode "resize" {
 }
 bindsym $mod+r mode "resize"
 
-bar {
-    swaybar_command waybar
-}
-
-# for running gnome wayland apps. Install polkit-gnome! 
-exec systemctl --user import-environment
-exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
-exec udiskie -a -n #-t
-exec wl-paste -t TEXT
+set $_JAVA_AWT_WM_NONREPARENTING 1
