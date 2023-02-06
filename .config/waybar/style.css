@@ -1,7 +1,7 @@
-@define-color darkest #101010;
-@define-color dark #101010;
-@define-color white #f5f5f5;
-@define-color accent #42A5F5;
+@define-color darkest #121212;
+@define-color dark #121212;
+@define-color white #eeeeee;
+@define-color accent #0087af;
 
 * {
     color: @white;
@@ -18,7 +18,7 @@ window#waybar {
     background-color: @darkest;
 }
 
-#language, #idle_inhibitor, #bluetooth, #network, #pulseaudio, #battery, #date, #clock, #custom-sep, #tray {
+#language, #idle_inhibitor, #bluetooth, #network, #pulseaudio, #battery, #date, #clock, #custom-sep, #custom-sep2, #tray {
     padding: 0 5 0 5;
     font-size: 12px;
     font-weight: bold;
@@ -51,12 +51,16 @@ window#waybar {
 }
 
 #custom-sep{
-    font-weight: bolder;
+    /* font-weight: bolder; */
+    padding: 0 0 0 0
+}
+
+#custom-sep2{
+    /* font-weight: bolder; */
     padding: 0 0 0 0
 }
 
 #language{
-    margin-top: -1
 }
 #idle_inhibitor{
 }
@@ -85,12 +89,28 @@ window#waybar {
 }
 
 #clock {
-    padding-top: 2;
+    margin-right: 1;
 }
 
 #custom-power{
     margin-left: -9;
     font-size: 12;
+}
+
+#battery{
+    margin-left: -5;
+}
+#pulseaudio{
+    margin-left: 1;
+}
+
+#idle_inhibitor{
+    margin-left: 0;
+    margin-right: -3;
+}
+
+#language{
+    margin-right: 1;
 }
 
 #custom-power, #battery, #network, #idle_inhibitor, #tray{
