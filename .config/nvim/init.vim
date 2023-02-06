@@ -13,6 +13,7 @@ Plug 'tomtom/tcomment_vim'
 Plug 'nathanaelkane/vim-indent-guides'
 Plug 'mzlogin/vim-markdown-toc'
 Plug 'kaicataldo/material.vim', { 'branch': 'main' }
+Plug 'vimwiki/vimwiki'
 
 " syntax check
 Plug 'w0rp/ale'
@@ -29,12 +30,11 @@ Plug 'Chiel92/vim-autoformat'
 
 call plug#end()
 
-filetype plugin indent on
-
+filetype plugin on
 " Configurations Part
 
 " Others
-set clipboard=unnamedplus
+" set clipboard=unnamedplus
 "set spell spelllang=ru_ru,en_us
 map <F8> :setlocal spell! spelllang=ru,en_us<CR>
 "Можно добавлять слова в словарь, используя zg или удалять, используя zug
@@ -42,39 +42,45 @@ set keymap=russian-jcukenwin
 set iminsert=0
 set imsearch=0
 set nocompatible
-set foldcolumn=0
 set noerrorbells
 set novisualbell
 set history=200
-set wrap
+
+"wrap заставляет переносить строчки без их разделения
+"Соответсвенно nowrap рендерит строчки за границами экрана
+set wrap linebreak nolist "Данная вариация работает как wrap...
+"... но переносит строчки не посимвольно, а по словам
+
 set linebreak
 set ruler
 set autoindent
+set foldcolumn=0
+" set columns=80
+set number relativenumber
 
 " UI configuration
 syntax on
 syntax enable
 set cursorline
-set scrolloff=4
+set scrolloff=6
 
 " colorscheme
 colorscheme material
 let g:material_terminal_italics = 1
-" let g:material_theme_style = 'darker'
 set background=dark
 let g:lightline = {
-      \ 'colorscheme': 'one',
-      \ }
+            \ 'colorscheme': 'one',
+            \ }
 " True Color Support if it's avaiable in terminal
 if has("termguicolors")
     set termguicolors
 endif
 
 " if has("gui_running")
-    " set guicursor=n-v-c-sm:block,i-ci-ve:block,r-cr-o:blocks
+" set guicursor=n-v-c-sm:block,i-ci-ve:block,r-cr-o:blocks
 " endif
 
-set number
+" set number
 " set relativenumber
 set hidden
 set mouse=a
@@ -108,7 +114,7 @@ augroup NCM2
     set completeopt=noinsert,menuone,noselect
     " When the <Enter> key is pressed while the popup menu is visible, it only
     " hides the menu. Use this mapping to close the menu and also start a new line.
-    inoremap <expr> <CR> (pumvisible() ? "\<c-y>\<cr>" : "\<CR>")
+    " inoremap <expr> <CR> (pumvisible() ? "\<c-y>\<cr>" : "\<CR>")
     " uncomment this block if you use vimtex for LaTex
     " autocmd Filetype tex call ncm2#register_source({
     "           \ 'name': 'vimtex',
@@ -137,9 +143,10 @@ let airline#extensions#ale#error_symbol = 'E:'
 let airline#extensions#ale#warning_symbol = 'W:'
 
 " Goyo
-map <F9> :Goyo<CR>:PencilSoft<CR>
-map <F10> :PencilSoft<CR
-
+map <F9> :Goyo<CR>  
+map <F10> :PencilSoft<CR>
+let g:pencil#wrapModeDefault = 'soft'   " default is 'hard'
+let g:pencil#autoformat = 1      " 0=disable, 1=enable (def)
 " Pencil
 augroup pencil
     autocmd!
