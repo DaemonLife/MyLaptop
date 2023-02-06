@@ -6,10 +6,10 @@
 
     "modules-center": ["sway/window"],
 
-    "modules-right": ["tray", "custom/sep", "sway/language", "custom/sep", "idle_inhibitor", "custom/sep", "network", "custom/sep", "pulseaudio", "custom/sep", "battery", "custom/sep", "clock", "custom/sep"],
+    "modules-right": ["tray", "sway/language", "custom/sep", "idle_inhibitor", "network", "custom/sep2", "custom/sep", "pulseaudio", "battery", "custom/sep2", "custom/sep", "clock", "custom/sep2"],
 
 // Modules configuration
-    "sway/workspaces": {
+    "wlr/workspaces": {
 	"disable-scroll": true,
 	"all-outputs": true,
 	"format": "{icon}",
@@ -29,7 +29,7 @@
         }
     },
 
-    "sway/window": {
+    "wlr/window": {
     },
 
     "tray": {
@@ -39,8 +39,8 @@
     "idle_inhibitor": {
         "format": "{icon}",
         "format-icons": {
-            "activated": "Brekekekex",
-            "deactivated": ""
+            "activated": "",
+            "deactivated": ""
         }
     },
 
@@ -57,14 +57,18 @@
     },
     
     "custom/sep": {
-        "format": " ",
+        "format": "/",
+    },
+
+    "custom/sep2": {
+        "format": "",
     },
     
     "sway/language": {
         "format": "{}",
-        "max-length": 58
+        "max-length": 58,
     },
-    
+
     "clock": {
        	/* "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>", */
        	"format": "{:%R}",
@@ -78,10 +82,10 @@
             "critical": 15
         },
         "interval": 30,
-        "format": "{icon} {capacity}%",
-        "format-charging": "{icon} +{capacity}%",
-        "format-plugged": "{capacity}%",
-        "format-alt": "{icon} {time}",
+        "format": " {capacity}",
+        "format-charging": "+ {capacity}",
+        "format-plugged": "{capacity}",
+        "format-alt": "{time}",
         "format-icons": ["", "", "", "", ""],
         "on-click": "gnome-power-statistics",
     },
@@ -98,9 +102,9 @@
     },
 
 "pulseaudio": {
-        "format": "{icon}{volume}%{format_source}",
-        "format-bluetooth": "{icon} {volume}% {format_source}",
-        "format-bluetooth-muted": "   {volume}% {format_source}",
+        "format": "{icon}{volume}{format_source}",
+        "format-bluetooth": "{icon} {volume} {format_source}",
+        "format-bluetooth-muted": "   {volume} {format_source}",
         "format-muted": "",
         "format-source": " mic",
         "format-source-muted": "",
