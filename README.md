@@ -155,7 +155,7 @@ reboot
 
 ## 3.0 Post install
 ~~~
-pacman -Syu sway waybar bemenu mako swayidle swaylock udiskie wl-clipboard light tlp tlp-rdw alacritty git zsh which
+pacman -Syu sway waybar bemenu mako swayidle swaylock udiskie wl-clipboard light tlp tlp-rdw alacritty git zsh which pavucontrol
 
 sudo chmod u+s /usr/bin/light # to have ability to changing your screen brightness 
 ~~~
