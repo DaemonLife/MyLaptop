@@ -39,17 +39,13 @@ Volumes setup
 fdisk -l
 fdisk /dev/the_disk_to_be_partitioned
 ```
-
 1GiB for boot (/boot mounpoint)
 8GiB for swap
 All for root (/ mountpoint)
-
-```
 partition type for:
 1. EFI - uefi
 2. root - linux
 3. swap - swap
-```
 
 Format partitions:
 ~~~
@@ -57,7 +53,6 @@ mkfs.btrfs -L ROOT /dev/partition
 mkswap /dev/swap_partition
 mkfs.fat -F 32 /dev/efi_system_partition
 ~~~
-
 Mounting root and create btrfs subvolums 
 ~~~
 mount /dev/root_partition /mnt
@@ -69,7 +64,6 @@ umount /mnt
 Mounting btrfs subvolums
 ~~~
 mount -o compress=zstd,ssd,subvol=@ /dev/root_partitio /mnt
-
 mkdir /mnt/home
 
 mount -o compress=zstd,ssd,subvol=@home /dev/root_partitio /mnt/home
@@ -99,7 +93,6 @@ arch-chroot /mnt
 Timezone
 ~~~
 ln -sf /usr/share/zoneinfo/Region/City /etc/localtime
-
 hwclock --systohc
 ~~~
 
