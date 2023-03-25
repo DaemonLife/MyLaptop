@@ -38,11 +38,13 @@ Volumes setup
 ```
 fdisk -l
 fdisk /dev/the_disk_to_be_partitioned
+```
 
 1GiB for boot (/boot mounpoint)
 8GiB for swap
 All for root (/ mountpoint)
 
+```
 partition type for:
 1. EFI - uefi
 2. root - linux
