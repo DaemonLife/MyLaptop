@@ -155,8 +155,9 @@ reboot
 
 ## 3.0 Post install
 ~~~
-pacman -Syu sway waybar wofi mako swayidle swaylock playerctl pavucontrol udiskie wl-clipboard clipman light tlp tlp-rdw smartmontools gnome-tools # xorg - why?? idk now sorry
-sudo chmod u+s /usr/bin/light # to have ability to changing your screen brightness
+pacman -Syu sway waybar bemenu mako swayidle swaylock udiskie wl-clipboard light tlp tlp-rdw alacritty git zsh which
+
+sudo chmod u+s /usr/bin/light # to have ability to changing your screen brightness 
 ~~~
 
 Adequate touchpad, mouse 
