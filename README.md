@@ -1,4 +1,4 @@
-# MyArchLaptop Installing and setup Arch at Lenovo Ideapad 5 15are05
+# MyArchLaptop Installing and setup
 
 ## 1.0 First steps
 
@@ -6,9 +6,9 @@ Power off a terrible laptop sound
 ```rmmod pcspkr```
 
 Unblockinf wifi module
-```nrfkill unblock wifi```
+```rfkill unblock wifi```
 or
-```nrfkill unblock all```
+```rfkill unblock all```
 
 Connect to wifi
 ```
@@ -18,6 +18,7 @@ device list
 station {device} scan
 station {device} connect {SSID}
 exit
+ping archlinux.org
 ```
 
 ## 1.1 The Easy Way 
@@ -28,30 +29,36 @@ Just run Archinstall and jump to chapter 3.0 - it's easy!!! or do it all sufferi
 
 Time and keys
 ```
-timedatectl set-ntp true 
+timedatectl set-ntp true
+timedatectl
 loadkeys ru; loadkeys us
 ```
 
-Volumes setup: for EFI (EFI type), for root (Linux 86_64x type)
+Volumes setup
 ```
-cfdisk
+fdisk -l
+fdisk /dev/the_disk_to_be_partitioned
+
+1GiB for boot (/boot mounpoint)
+8GiB for swap
+All for root (/ mountpoint)
+
+partition type for:
+1. EFI - uefi
+2. root - linux
+3. swap - swap
 ```
 
-Crypt root
+Format partitions:
 ~~~
-cryptsetup luksFormat /dev/sda2
-cryptsetup open /dev/sda2 luks
-~~~
-
-Format all partitions:
-~~~
-mkfs.vfat -F32 -n EFI /dev/sda1
-mkfs.btrfs -L ROOT /dev/mapper/luks
+mkfs.btrfs -L ROOT /dev/partition
+mkswap /dev/swap_partition
+mkfs.fat -F 32 /dev/efi_system_partition
 ~~~
 
 Mounting root and create btrfs subvolums 
 ~~~
-mount /dev/mapper/luks /mnt
+mount /dev/root_partition /mnt
 btrfs sub create /mnt/@
 btrfs sub create /mnt/@home
 umount /mnt
@@ -59,22 +66,22 @@ umount /mnt
 
 Mounting btrfs subvolums
 ~~~
-mount -o noatime,nodiratime,compress=zstd,space_cache,ssd,subvol=@ /dev/mapper/luks /mnt
+mount -o compress=zstd,ssd,subvol=@ /dev/root_partitio /mnt
 
 mkdir /mnt/home
 
-mount -o noatime,nodiratime,compress=zstd,space_cache,ssd,subvol=@home /dev/mapper/luks /mnt/home
+mount -o compress=zstd,ssd,subvol=@home /dev/root_partitio /mnt/home
 ~~~
 
-Mounting EFI partition:
+Mounting EFI partition and swapon:
 ~~~
-mkdir /mnt/boot
-mount /dev/sda1 /mnt/boot
+mount --mkdir /dev/efi_system_partition /mnt/boot
+swapon /dev/swap_partition
 ~~~
 
 Pacstrap
 ~~~
-pacstrap /mnt linux base base-devel btrfs-progs amd-ucode nano linux-firmware iwd networkmanager neovim
+pacstrap -K /mnt base linux linux-firmware btrfs-progs amd-ucode nano iwd networkmanager neovim sudo grub efibootmgr man iwd dhcpcd os-prober ufw
 ~~~
 
 Fstab
@@ -89,7 +96,7 @@ arch-chroot /mnt
 
 Timezone
 ~~~
-ln -sf /usr/share/zoneinfo/Europe/Moscow /etc/localtime
+ln -sf /usr/share/zoneinfo/Region/City /etc/localtime
 
 hwclock --systohc
 ~~~
@@ -101,7 +108,6 @@ echo LANG=en_US.UTF-8 >> /etc/locale.conf
 locale-gen
 ~~~
 
-
 Your hostname
 ~~~
 echo arch >> /etc/hostname
@@ -109,50 +115,23 @@ echo arch >> /etc/hostname
 
 Edit /etc/hosts and add:
 ~~~
-127.0.0.1 localhost
-::1       localhost
-127.0.1.1 arch.localdomain arch
+127.0.0.1     localhost
+::1           localhost
+127.0.1.1     arch
 ~~~
-
-Admin password
+Initramfs (skip it?)
+~~~
+# mkinitcpio -P 
+~~~
+root password
 ~~~
 passwd
 ~~~
 
-Install programs to system
-~~~
-pacman -S grub efibootmgr network-manager-applet wpa_supplicant os-prober mtools dosfstools reflector git bluez bluez-utils alsa-utils pulseaudio pulseaudio-bluetooth
-~~~
-
-Change file /etc/mkinitcpio.conf:
-~~~
-...
-MODULES = (btrfs)
-...
-HOOKS="base keyboard udev autodetect modconf block keymap encrypt btrfs filesystems fsck"
-...
-~~~
-~~~
-mkinitcpio -p linux
-~~~
-
 ### 2.2 Boot install
-Check your UUID (writed in /etc/default/grub for copy convenience)
-~~~
-blkid -s UUID -o value /dev/sda2
-
-blkid -s UUID -o value /dev/sda2 >> /etc/default/grub
-~~~
-
-Change xxxx to your UUID in /etc/default/grub
-~~~
-GRUB_CMDLINE_LINUX="cryptdevice=UUID=xxxx:cryptroot"
-~~~
-
 Install grub
 ~~~
 grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB
-
 grub-mkconfig -o /boot/grub/grub.cfg
 ~~~
 
@@ -168,6 +147,12 @@ Uncomment Allow people in group wheel...
 
 ~~~
 systemctl enable NetworkManager
+systemctl enable iwd
+systemctl enable dhcpcd
+systemctl enable ufw
+ufw default deny
+ufw limit ssh
+ufw enable
 exit
 # umount -R /mnt
 reboot
