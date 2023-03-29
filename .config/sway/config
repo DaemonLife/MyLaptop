@@ -11,24 +11,13 @@ exec udiskie -a -n #-t
 exec wl-paste -t TEXT
 exec mako
 # xwayland disable
-# exec waybar
 
-
-font pango:FreeMono Regular 15
-
-# gapss and borders
-# smart_gaps on
-# gaps outer 4
-# gaps inner 8
-
-# border artean windows
-smart_borders on
-default_border pixel 4
+font pango:jetbrains mono 16
 
 default_floating_border none
 
 # idki
-client.focused #0087af #0087af #0087af #0087af   
+client.focused          #0087af #0087af #0087af #0087af   
 client.focused_inactive #0087af #0087af #0087af #0087af
 client.unfocused        #121212 #121212 #121212 #121212
 
@@ -37,28 +26,16 @@ client.urgent           #121212 #121212 #121212 #121212
 # Logo key. Use Mod1 for Alt.
 set $mod Mod4
 
-output eDP-1 {
-    adaptive_sync on
-    
-    # msk
-    # pos 1920 300 res 1920x1080@60.001Hz
-    
-    # gg
-    pos 0 0 res 1920x1080@60.001Hz
-    # scale 1
-    
-    }
-output HDMI-A-1 {
-    adaptive_sync on
-    
-    # msk
-    # pos 0 0 res 1920x1080@74.973Hz
-    # pos 3840 0 res 3840x2160@30.000Hz
-    
-    # gg
-    pos 1920 0 res 1920x1080@60.000Hz
-    
-    }
+smart_borders on
+default_border pixel 2
+default_floating_border none
+
+# msk - - - - - - -
+output eDP-1 pos 0 0 scale 1.25 pos 1920 300 res 2240x1400@60.002Hz adaptive_sync on render_bit_depth 10
+output HDMI-A-1 pos 0 0 res 1920x1080@74.973Hz adaptive_sync on
+
+# gg - - - - - - - -
+# output eDP-1 pos 0 0 scale 1.5 res 2240x1400@60.002Hz adaptive_sync on render_bit_depth 10
 
 workspace 1 output eDP-1
 workspace 2 output HDMI-A-1
@@ -66,14 +43,14 @@ workspace 3 output HDMI-A-1
 workspace 4 output HDMI-A-1
 
 # wallpapers
-# output * mode 1920x1080 pos 1920 0 bg /home/user/Pictures/Wallpapers/mpv-shot0001.jpg stretch
-output * bg #121212 solid_color
+output * bg /home/user/Pictures/Wallpapers/img9.jpg fill
+#output * bg #121212 solid_color
 
 input "type:keyboard" {
     xkb_layout us,ru
     xkb_options grp:win_space_toggle
 	}	
-input "1267:12608:ELAN0001:00_04F3:3140_Touchpad" {
+input "type:touchpad" {
     dwt enabled	# disable-while-typing
     tap enabled
     natural_scroll enabled
@@ -123,18 +100,18 @@ bindsym Alt+$mod+Up exec light -A 2
 bindsym Alt+$mod+Down exec light -U 2
 
 # Audio controls
-bindsym XF86AudioRaiseVolume exec pactl set-sink-volume 0 +5%
+bindsym XF86AudioRaiseVolume exec ~/.config/sway/scripts/raise_volume.sh 
 bindsym XF86AudioLowerVolume exec pactl set-sink-volume 0 -5%
 bindsym XF86AudioMute exec pactl set-sink-mute 0 toggle 
-bindsym XF86AudioMicMute exec amixer sset Capture toggle
+bindsym XF86AudioMicMute exec pactl set-source-mute @DEFAULT_SOURCE@ toggle 
 
 bindsym XF86AudioPrev exec playerctl previous
 bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPlay exec playerctl play-pause
 bindsym XF86AudioStop exec playerctl stop
 
-bindsym Alt+Right exec pactl set-sink-volume 0 +5%
-bindsym Alt+Left exec pactl set-sink-volume 0 -5%
+# bindsym Alt+Right exec pactl set-sink-volume 0 +5%
+# bindsym Alt+Left exec pactl set-sink-volume 0 -5%
 bindsym Alt+$mod+Left exec pactl set-sink-mute 0 true 
 bindsym Alt+$mod+Right exec pactl set-sink-mute 0 false 
 
@@ -157,7 +134,7 @@ exec swayidle -w \
     # Kill focused window
     bindsym --to-code $mod+q kill
     # Start your launcher
-    bindsym --to-code $mod+d exec bemenu-run -l 5 --fn freemono 40 -H 20 -W 1 
+    bindsym --to-code $mod+d exec swaymsg input "type:keyboard" xkb_switch_layout 0 && bemenu-run -l 8 --fn "jetbrains mono 14" -H 24 -W 8 -n --tf "#0087af" --hf "#0087af" 
     # mouse button for dragging.
     floating_modifier $mod normal
     # Reload the configuration file
