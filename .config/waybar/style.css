@@ -6,12 +6,7 @@
 * {
     color: @white;
     border: none;
-    /* border-radius: 0; */
-    font-family: "FreeMono Bold";
-    /* font-family:i "Inconsolata Medium"; */
-    /* font-family: Roboto, Helvetica, Arial, sans-serif; */
-    /* font-family: Inconsolata; */
-    /* font-family: Hack; */
+    font-family: "fira";
 }
 
 window#waybar {
@@ -20,7 +15,7 @@ window#waybar {
 
 #language, #idle_inhibitor, #bluetooth, #network, #pulseaudio, #battery, #date, #clock, #custom-sep, #custom-sep2, #tray {
     padding: 0 5 0 5;
-    font-size: 12px;
+    font-size: 16px;
     font-weight: bold;
 }
 
@@ -29,7 +24,7 @@ window#waybar {
     margin: 0 0 0 0;
     border-radius: 0;
     padding: 0 5 0 5;
-    font-size: 12px;
+    font-size: 14px;
 }
 
 #workspaces button.focused {
@@ -41,7 +36,7 @@ window#waybar {
 
 #window{
     font-weight: bold;
-    font-size: 15px;
+    font-size: 16px;
     padding: 0 10 0 10;
     background-color: @darkest; 
 }
@@ -89,31 +84,36 @@ window#waybar {
 }
 
 #clock {
-    margin-right: 1;
+    /* margin-right: 1; */
 }
 
 #custom-power{
-    margin-left: -9;
-    font-size: 12;
+    /* margin-left: -9; */
+    /* font-size: 12; */
 }
 
 #battery{
-    margin-left: -5;
+    /* margin-left: -5; */
 }
 #pulseaudio{
-    margin-left: 1;
+    /* margin-left: 1; */
 }
 
 #idle_inhibitor{
-    margin-left: 0;
-    margin-right: -3;
+    /* margin-left: 0; */
+    /* margin-right: -3; */
 }
 
 #language{
-    margin-right: 1;
+    /* margin-right: 1; */
 }
 
 #custom-power, #battery, #network, #idle_inhibitor, #tray{
 }
 #clock, #pulseaudio, #bluetooth, #language{
+}
+
+#bluetooth {
+    padding: 0;
+    margin: 0;
 }
