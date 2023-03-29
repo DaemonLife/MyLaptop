@@ -1,12 +1,12 @@
 {
     "layer": "top",
     "position": "top", 
-    "height": 15,
+    "height": 18,
     "modules-left": ["sway/workspaces"],
 
     "modules-center": ["sway/window"],
 
-    "modules-right": ["tray", "sway/language", "custom/sep", "idle_inhibitor", "network", "custom/sep2", "custom/sep", "pulseaudio", "battery", "custom/sep2", "custom/sep", "clock", "custom/sep2"],
+    "modules-right": ["custom/sep1", "tray", "sway/language", "custom/sep", "custom/sep2", "pulseaudio", "network", "bluetooth", "idle_inhibitor", "battery", "custom/sep2", "custom/sep", "clock"],
 
 // Modules configuration
     "wlr/workspaces": {
@@ -39,8 +39,8 @@
     "idle_inhibitor": {
         "format": "{icon}",
         "format-icons": {
-            "activated": "",
-            "deactivated": ""
+            "activated": "",
+            "deactivated": ""
         }
     },
 
@@ -49,15 +49,15 @@
         "format-alt": "{icon}",
         "interval": 30,
         "format-icons": {
-            "enabled": "",
-            "disabled": ""
+            "enabled": "  ",
+            "disabled": ""
         },
-        "tooltip-format": " {} ",
+        "tooltip-format": "{}",
         "on-click": "bluetooth toggle"
     },
     
     "custom/sep": {
-        "format": "/",
+        "format": "    ", 
     },
 
     "custom/sep2": {
@@ -70,8 +70,7 @@
     },
 
     "clock": {
-       	/* "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>", */
-       	"format": "{:%R}",
+       	"format": "{:%d/%m %H:%M}",
         "on-click": "exec gnome-calendar",
     },
 
@@ -79,11 +78,12 @@
         "states": {
             "good": 90,
             "warning": 30,
-            "critical": 15
+            "critical": 20
         },
         "interval": 30,
-        "format": " {capacity}",
-        "format-charging": "+ {capacity}",
+        /* "format": "{icon}", */
+        "format": "{icon} {capacity}%",
+        "format-charging": "  {icon} {capacity}",
         "format-plugged": "{capacity}",
         "format-alt": "{time}",
         "format-icons": ["", "", "", "", ""],
@@ -92,20 +92,20 @@
 
 
     "network": {
-        // "interface": "wlp2*", // (Optional) To force the use of this interface
+        "format-disabled": "",
         "format-wifi": "",
         "format-ethernet": " {ipaddr}/{cidr}",
         "format-linked": " (No IP)",
-        "format-disconnected": "No Internet",
-        /* "format-alt": " {ipaddr}/{cidr}", */
-        "on-click": "nmcli dev wifi rescan && gnome-terminal -- zsh -c nmtui",
+        "format-disconnected": "",
+        "on-click": "nmcli dev wifi rescan && nmtui",
+        "on-click-right": "wifi toggle && sway reload",
     },
 
 "pulseaudio": {
-        "format": "{icon}{volume}{format_source}",
+        "format": "{icon}{volume}%{format_source}",
         "format-bluetooth": "{icon} {volume} {format_source}",
         "format-bluetooth-muted": "   {volume} {format_source}",
-        "format-muted": "",
+        "format-muted": "",
         "format-source": " mic",
         "format-source-muted": "",
         "format-icons": {
@@ -115,7 +115,7 @@
             "phone": " ",
             "portable": " ",
             "car": " ",
-            "default": [" ", " ", " "]
+            "default": [" ", " ", " ", " "]
         },
         "tooltip-format": "{desc}, {volume}%",
         "on-click": "pavucontrol",
