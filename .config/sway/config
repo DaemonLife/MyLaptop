@@ -10,6 +10,7 @@ exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 exec udiskie -a -n #-t
 exec wl-paste -t TEXT
 exec mako
+exec MOZ_ENABLE_WAYLAND=1
 # xwayland disable
 
 font pango:jetbrains mono 16
@@ -31,11 +32,12 @@ default_border pixel 2
 default_floating_border none
 
 # msk - - - - - - -
-output eDP-1 pos 0 0 scale 1.25 pos 1920 300 res 2240x1400@60.002Hz adaptive_sync on render_bit_depth 10
-output HDMI-A-1 pos 0 0 res 1920x1080@74.973Hz adaptive_sync on
+# output eDP-1 pos 0 0 scale 1.25 pos 1920 300 res 2240x1400@60.002Hz adaptive_sync on render_bit_depth 10
+# output HDMI-A-1 pos 0 0 res 1920x1080@74.973Hz adaptive_sync on
 
 # gg - - - - - - - -
-# output eDP-1 pos 0 0 scale 1.5 res 2240x1400@60.002Hz adaptive_sync on render_bit_depth 10
+output eDP-1 pos 0 0 scale 1.5 res 2240x1400@60.002Hz adaptive_sync on render_bit_depth 10
+output HDMI-A-1 pos 1920 0 res 1920x1080@60Hz adaptive_sync on
 
 workspace 1 output eDP-1
 workspace 2 output HDMI-A-1
@@ -43,7 +45,10 @@ workspace 3 output HDMI-A-1
 workspace 4 output HDMI-A-1
 
 # wallpapers
-output * bg /home/user/Pictures/Wallpapers/img9.jpg fill
+output * {
+    # color profile "~/Pictures/LEN140WUXGA+ #1 2023-03-29 00-05 120cdm2 D6500 2.2 M-S XYZLUT+MTX.icm"
+    bg /home/user/Pictures/Wallpapers/img9.jpg fill
+}
 #output * bg #121212 solid_color
 
 input "type:keyboard" {
@@ -100,9 +105,9 @@ bindsym Alt+$mod+Up exec light -A 2
 bindsym Alt+$mod+Down exec light -U 2
 
 # Audio controls
-bindsym XF86AudioRaiseVolume exec ~/.config/sway/scripts/raise_volume.sh 
-bindsym XF86AudioLowerVolume exec pactl set-sink-volume 0 -5%
-bindsym XF86AudioMute exec pactl set-sink-mute 0 toggle 
+bindsym XF86AudioRaiseVolume exec amixer sset 'Master' 5%+ 
+bindsym XF86AudioLowerVolume exec amixer sset 'Master' 5%-
+bindsym XF86AudioMute exec amixer -D pulse set Master 1+ toggle 
 bindsym XF86AudioMicMute exec pactl set-source-mute @DEFAULT_SOURCE@ toggle 
 
 bindsym XF86AudioPrev exec playerctl previous
@@ -112,8 +117,8 @@ bindsym XF86AudioStop exec playerctl stop
 
 # bindsym Alt+Right exec pactl set-sink-volume 0 +5%
 # bindsym Alt+Left exec pactl set-sink-volume 0 -5%
-bindsym Alt+$mod+Left exec pactl set-sink-mute 0 true 
-bindsym Alt+$mod+Right exec pactl set-sink-mute 0 false 
+# bindsym Alt+$mod+Left exec pactl set-sink-mute 0 true 
+# bindsym Alt+$mod+Right exec pactl set-sink-mute 0 false 
 
 # commands for change output device
 # pactl list sinks

@@ -4,6 +4,7 @@
 !.config/cmus
 !.config/mako
 !.config/nvim
-!.config/sway
+!.config/swaylock
 !.config/swaylock
 !.config/waybar
+!.config/mumble-dark.qbtheme

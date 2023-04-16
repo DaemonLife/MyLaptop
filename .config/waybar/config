@@ -6,7 +6,7 @@
 
     "modules-center": ["sway/window"],
 
-    "modules-right": ["custom/sep1", "tray", "sway/language", "custom/sep", "custom/sep2", "pulseaudio", "network", "bluetooth", "idle_inhibitor", "battery", "custom/sep2", "custom/sep", "clock"],
+    "modules-right": ["tray", "custom/sep", "sway/language", "custom/sep1", "network", "bluetooth", "idle_inhibitor", "custom/sep1", "pulseaudio", "battery", "clock"],
 
 // Modules configuration
     "wlr/workspaces": {
@@ -39,8 +39,8 @@
     "idle_inhibitor": {
         "format": "{icon}",
         "format-icons": {
-            "activated": "",
-            "deactivated": ""
+            "activated": "idle",
+            "deactivated": "idle"
         }
     },
 
@@ -57,11 +57,11 @@
     },
     
     "custom/sep": {
-        "format": "    ", 
+        "format": "", 
     },
 
     "custom/sep2": {
-        "format": "",
+        "format": "      ",
     },
     
     "sway/language": {
@@ -70,7 +70,7 @@
     },
 
     "clock": {
-       	"format": "{:%d/%m %H:%M}",
+       	"format": "{:%e %b %H:%M}",
         "on-click": "exec gnome-calendar",
     },
 
@@ -81,41 +81,41 @@
             "critical": 20
         },
         "interval": 30,
-        /* "format": "{icon}", */
-        "format": "{icon} {capacity}%",
-        "format-charging": "  {icon} {capacity}",
+        /* "format": "bat: [{icon}]", */
+        "format": "bat: {capacity}%",
+        "format-charging": "bat: {capacity}",
         "format-plugged": "{capacity}",
         "format-alt": "{time}",
-        "format-icons": ["", "", "", "", ""],
+        "format-icons": [".....", "𐑦....", "𐑦𐑦...", "𐑦𐑦𐑦..", "𐑦𐑦𐑦𐑦.", "𐑦𐑦𐑦𐑦𐑦"],
         "on-click": "gnome-power-statistics",
     },
 
 
     "network": {
-        "format-disabled": "",
-        "format-wifi": "",
+        "format-disabled": "wifi",
+        "format-wifi": "wifi",
         "format-ethernet": " {ipaddr}/{cidr}",
         "format-linked": " (No IP)",
-        "format-disconnected": "",
+        "format-disconnected": "wifi",
         "on-click": "nmcli dev wifi rescan && nmtui",
         "on-click-right": "wifi toggle && sway reload",
     },
 
 "pulseaudio": {
-        "format": "{icon}{volume}%{format_source}",
+        "format": "vol: {icon}{format_source}",
         "format-bluetooth": "{icon} {volume} {format_source}",
         "format-bluetooth-muted": "   {volume} {format_source}",
-        "format-muted": "",
+        "format-muted": "vol: .....",
         "format-source": " mic",
         "format-source-muted": "",
         "format-icons": {
-            "headphone": " ",
+            /* "headphone": " ", */
             "hands-free": " ",
             "headset": " ",
             "phone": " ",
             "portable": " ",
             "car": " ",
-            "default": [" ", " ", " ", " "]
+            "default": [".....", "𐑦....", "𐑦𐑦...", "𐑦𐑦𐑦..", "𐑦𐑦𐑦𐑦.", "𐑦𐑦𐑦𐑦𐑦"]
         },
         "tooltip-format": "{desc}, {volume}%",
         "on-click": "pavucontrol",

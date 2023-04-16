@@ -8,21 +8,21 @@ window:
 font:
   # The normal (roman) font face to use.
   normal:
-    family: Free Mono
-    style: Regular
+    family: jetbrains mono
+    # style: 
 
   # The bold font face
   bold:
-    family: Free Mono
+    family: jetbrains mono
     style: Bold
 
   # The italic font face
   italic:
-    family: Free Mono 
+    family: jetbrains mono 
     style: Regular Italic
 
   # Point size of the font
-  size: 18.0
+  size: 16.0
 
   # Offset is the extra space around each character. offset.y can be thought of
   # as modifying the linespacing, and offset.x as modifying the letter spacing.

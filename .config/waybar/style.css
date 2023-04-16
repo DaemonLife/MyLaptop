@@ -61,11 +61,25 @@ window#waybar {
 }
 #bluetooth{
 }
+
 #network {
+    /* color: #c3e88d; */
 }
 #network.disconnected {
+    color: #f07178;
 }
-#pulseaudio{
+#network.disabled {
+    color: #4a4a4a;
+}
+
+#idle_inhibitor.activated {
+    color: #c3e88d;
+}
+#idle_inhibitor.deactivated{
+    color: #4a4a4a;
+}
+#pulseaudio.muted {
+    color: #4a4a4a;
 }
 #battery{
 } 
