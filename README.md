@@ -61,19 +61,18 @@ sudo chsh -s $(which zsh)
 # To Sway!
 Installing Sway
 
-- wofi: demenu analog, app search.
+- bemenu: app search.
 - waybar: better bar.
-- kitty: IMHO, best terminal.
+- alacritty: best terminal.
 - mako: notifications daemon.
 - swayidle, swaylock: it's your locksreen. 
-- pulseaudio-utils, playerctl: for pactl and playctl commands to change volume, etc.
 - pavucontrol: simple audio control with gui.
 - NetworkManager-tui: for command nmtui, simple wifi control with gui.
 - udiskie: mounting devices.
 - wl-clipboard, clipman: proggrams for clipboard.
 - light: control monitor brightness.
 ~~~
-sudo dnf install sway waybar mako alacritty swayidle swaylock pavucontrol NetworkManager-tui udiskie wl-clipboard clipman light
+sudo dnf install sway bemenu waybar mako alacritty swayidle swaylock pavucontrol NetworkManager-tui udiskie wl-clipboard clipman light
 ~~~
 Reboot after all and remember to login to sway in GDM.
 ~~~
