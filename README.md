@@ -1,8 +1,5 @@
 # GNOME and SWAY setup for Fedora
 
-After install add all configs from this repository to your folders.
-
-# GNOME Post installing
 Let's make the dnf fast like lynx
 ~~~
 echo 'fastestmirror=1' | sudo tee -a /etc/dnf/dnf.conf
@@ -77,10 +74,6 @@ sudo dnf install sway bemenu waybar mako alacritty swayidle swaylock pavucontrol
 Reboot after all and remember to login to sway in GDM.
 ~~~
 reboot
-~~~
-How to WiFi control? The easy way:
-~~~
-nmcli dev wifi rescan && nmtui # search for mentality and run a simple gui
 ~~~
 
 ## Now copy all configs. 
