@@ -1,0 +1,9 @@
+*
+!.gitignore
+!.config/alacritty
+!.config/cmus
+!.config/mako
+!.config/nvim
+!.config/sway
+!.config/swaylock
+!.config/waybar
