@@ -107,5 +107,5 @@ let g:pencil#autoformat = 1      " 0=disable, 1=enable (def)
 augroup pencil
     autocmd!
     autocmd FileType markdown,mkd call pencil#init()
-    autocmd FileType text         call pencil#init()
+    autocmd FileType *         call pencil#init()
 augroup END

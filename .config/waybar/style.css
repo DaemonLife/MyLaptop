@@ -81,16 +81,27 @@ window#waybar {
 #pulseaudio.muted {
     color: #4a4a4a;
 }
-#battery{
+
+#battery:not(.charging) {
+    color: @white;
+}
+#battery.charging{
+    color: #c3e88d;
+    animation-name: blink;
+    animation-duration: 1.5s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
 } 
 #battery.warning:not(.charging) {
-    color: @white;
+    color: #f07178;
     animation-name: blink;
     animation-duration: 0.5s;
     animation-timing-function: linear;
     animation-iteration-count: infinite;
     animation-direction: alternate;
 }
+
 @keyframes blink {
     to {
         color: @accent;

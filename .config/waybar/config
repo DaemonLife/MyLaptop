@@ -6,7 +6,7 @@
 
     "modules-center": ["sway/window"],
 
-    "modules-right": ["tray", "custom/sep", "sway/language", "custom/sep1", "network", "bluetooth", "idle_inhibitor", "custom/sep1", "pulseaudio", "battery", "clock"],
+    "modules-right": ["tray", "custom/sep", "sway/language", "custom/sep1", "network", "bluetooth", "idle_inhibitor", "pulseaudio", "battery", "clock", "custom/sep"],
 
 // Modules configuration
     "wlr/workspaces": {
@@ -57,36 +57,34 @@
     },
     
     "custom/sep": {
-        "format": "", 
+        "format": " ", 
     },
 
-    "custom/sep2": {
-        "format": "      ",
-    },
-    
     "sway/language": {
         "format": "{}",
         "max-length": 58,
     },
 
     "clock": {
-       	"format": "{:%e %b %H:%M}",
+       	"format": "{:%b %e  %H:%M}",
         "on-click": "exec gnome-calendar",
     },
 
     "battery": {
         "states": {
+            "full": 98,
             "good": 90,
-            "warning": 30,
+            "warning": 40,
             "critical": 20
         },
         "interval": 30,
-        /* "format": "bat: [{icon}]", */
+        /* "format": "bat: {icon}", */
         "format": "bat: {capacity}%",
-        "format-charging": "bat: {capacity}",
-        "format-plugged": "{capacity}",
-        "format-alt": "{time}",
-        "format-icons": [".....", "𐑦....", "𐑦𐑦...", "𐑦𐑦𐑦..", "𐑦𐑦𐑦𐑦.", "𐑦𐑦𐑦𐑦𐑦"],
+        "format-charging": "bat: {icon}",
+        "format-plugged": "bat: {capacity}%",
+        "format-alt": "bat: {capacity}%",
+            "format-icons": ["......", "ı.....", "ıı....", "ıııı..", "ııııı.", "ıııııı"],
+        /* "format-icons": [".....", "𐑦....", "𐑦𐑦...", "𐑦𐑦𐑦..", "𐑦𐑦𐑦𐑦.", "𐑦𐑦𐑦𐑦𐑦"], */
         "on-click": "gnome-power-statistics",
     },
 
@@ -115,8 +113,10 @@
             "phone": " ",
             "portable": " ",
             "car": " ",
-            "default": [".....", "𐑦....", "𐑦𐑦...", "𐑦𐑦𐑦..", "𐑦𐑦𐑦𐑦.", "𐑦𐑦𐑦𐑦𐑦"]
+            /* "default": ["□□□□□", "◼□□□□", "◼◼□□□", "◼◼◼□□", "◼◼◼◼□", "◼◼◼◼◼"] */
+            "default": ["......", "ı.....", "ıı....", "ıııı..", "ııııı.", "ıııııı"],
         },
+        "max-volume": 100,
         "tooltip-format": "{desc}, {volume}%",
         "on-click": "pavucontrol",
         "on-click-right": "pactl set-source-mute @DEFAULT_SOURCE@ toggle",
