@@ -47,8 +47,8 @@ workspace 4 output HDMI-A-1
 # wallpapers
 output * {
     # color profile "~/Pictures/LEN140WUXGA+ #1 2023-03-29 00-05 120cdm2 D6500 2.2 M-S XYZLUT+MTX.icm"
-    # bg /home/user/Pictures/Wallpapers/img9.jpg fill
-    bg #121212 solid_color
+    bg ~/Pictures/wallpaper.png fill
+    # bg #121212 solid_color
 }
 
 input "type:keyboard" {
