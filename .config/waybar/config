@@ -80,11 +80,11 @@
         "interval": 30,
         /* "format": "bat: {icon}", */
         "format": "bat: {capacity}%",
-        "format-charging": "bat: {icon}",
+        "format-charging": "bat: {capacity}%",
         "format-plugged": "bat: {capacity}%",
-        "format-alt": "bat: {capacity}%",
+        /* "format-alt": "bat: {capacity}%",
             "format-icons": ["......", "ı.....", "ıı....", "ııı...", "ıııı..", "ııııı.", "ıııııı"],
-        /* "format-icons": [".....", "𐑦....", "𐑦𐑦...", "𐑦𐑦𐑦..", "𐑦𐑦𐑦𐑦.", "𐑦𐑦𐑦𐑦𐑦"], */
+            "format-icons": [".....", "𐑦....", "𐑦𐑦...", "𐑦𐑦𐑦..", "𐑦𐑦𐑦𐑦.", "𐑦𐑦𐑦𐑦𐑦"], */
         "on-click": "gnome-power-statistics",
     },
 
