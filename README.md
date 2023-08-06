@@ -52,6 +52,8 @@ sed -i 's/ZSH_THEME=\".*\"/ZSH_THEME=\"gentoo\"/g' ~/.zshrc
 sed -i 's/plugins\=(.*)/plugins\=(git\ zsh-autosuggestions\ zsh-completions\ zsh-syntax-highlighting)/g' ~/.zshrc
 echo 'alias vi="nvim"' >> ~/.zshrc
 echo 'alias rg="ranger"' >> ~/.zshrc
+echo 'alias mwin="sudo mkdir -p /run/media/user/windows; sudo mount /dev/nvme0n1p3 /run/media/user/windows"' >> ~/.zshrc
+echo 'alias cdw="cd /run/media/user/windows/Users/user"' >> ~/.zshrc
 chsh -s $(which zsh)
 sudo chsh -s $(which zsh)
 ~~~
