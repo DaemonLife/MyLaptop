@@ -6,7 +6,7 @@ bar {
 }
 exec systemctl --user import-environment
 exec libinput-gestures-setup start
-exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
+exec --no-startup-id /usr/libexec/polkit-gnome-authentication-agent-1
 exec udiskie -a -n #-t
 exec wl-paste -t TEXT
 exec mako
@@ -18,9 +18,9 @@ font pango:jetbrains mono 16
 default_floating_border none
 
 # idki
-client.focused          #0087af #0087af #0087af #0087af   
-client.focused_inactive #0087af #0087af #0087af #0087af
-client.unfocused        #121212 #121212 #121212 #121212
+client.focused          #0087af #0087af #eeeeee #0087af   
+client.focused_inactive #0087af #0087af #121212 #0087af
+client.unfocused        #121212 #121212 #eeeeee #121212
 
 client.urgent           #121212 #121212 #121212 #121212
 
@@ -32,17 +32,21 @@ default_border pixel 2
 default_floating_border none
 
 # msk - - - - - - -
-# output eDP-1 pos 0 0 scale 1.25 pos 1920 300 res 2240x1400@60.002Hz adaptive_sync on render_bit_depth 10
-# output HDMI-A-1 pos 0 0 res 1920x1080@74.973Hz adaptive_sync on
+output eDP-1 pos 0 0 scale 1.25 pos 2560 260 res 2240x1400@60.002Hz adaptive_sync on render_bit_depth 10
+output DP-2 pos 0 0 res 2560x1440@164.998Hz adaptive_sync off
 
 # gg - - - - - - - -
-output eDP-1 pos 0 0 scale 1.5 res 2240x1400@60.002Hz adaptive_sync on render_bit_depth 10
-output HDMI-A-1 pos 1920 0 res 1920x1080@60Hz adaptive_sync on
+# output eDP-1 pos 0 0 scale 1.5 res 2240x1400@60.002Hz adaptive_sync on render_bit_depth 10
+# output HDMI-A-1 pos 1920 0 res 1920x1080@60Hz adaptive_sync on
 
 workspace 1 output eDP-1
-workspace 2 output HDMI-A-1
-workspace 3 output HDMI-A-1
-workspace 4 output HDMI-A-1
+workspace 2 output Output DP-2 HDMI-A-1
+workspace 3 output Output DP-2 HDMI-A-1
+workspace 4 output Output DP-2 HDMI-A-1
+workspace 4 output Output DP-2 HDMI-A-1
+# workspace 2 output HDMI-A-1
+# workspace 3 output HDMI-A-1
+# workspace 4 output HDMI-A-1
 
 # wallpapers
 output * {
@@ -129,7 +133,7 @@ bindsym XF86AudioStop exec playerctl stop
 
 exec swayidle -w \
     timeout 300 'swaylock -f -c 000000' \
-    timeout 350 'swaymsg "output * dpms off"' \
+    timeout 305 'swaymsg "output * dpms off"' \
         resume 'swaymsg "output * dpms on"' before-sleep 'swaylock -c 000000 && swaymsg input "type:keyboard" xkb_switch_layout 0'
 
     bindsym --to-code $mod+l exec swaylock -f -c 000000 && swaymsg input "type:keyboard" xkb_switch_layout 0
