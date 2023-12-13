@@ -2,34 +2,27 @@ let g:plugged_home = '~/.config/nvim/plugged'
 
 " Plugins List
 call plug#begin(g:plugged_home)
-
-" My plugins
-" Plug 'preservim/nerdtree'
-Plug 'junegunn/goyo.vim'
-Plug 'reedes/vim-pencil'
+Plug 'junegunn/goyo.vim' " easy writing
+Plug 'reedes/vim-pencil' " words transfer
 Plug 'itchyny/lightline.vim'
 Plug 'airblade/vim-gitgutter'
 Plug 'tomtom/tcomment_vim'
 Plug 'nathanaelkane/vim-indent-guides'
-Plug 'mzlogin/vim-markdown-toc'
 Plug 'kaicataldo/material.vim', { 'branch': 'main' }
 Plug 'vimwiki/vimwiki'
-
-" syntax check
-Plug 'w0rp/ale'
-
-" Formater
-Plug 'Chiel92/vim-autoformat'
-
+Plug 'junegunn/limelight.vim'
 call plug#end()
-
 filetype plugin on
-" Configurations Part
 
-" Others
-" set clipboard=unnamedplus
-"set spell spelllang=ru_ru,en_us
-map <F8> :setlocal spell! spelllang=ru,en_us<CR>
+" * Configurations Part *
+
+" clipboard setup
+set clipboard=unnamedplus " cut (x) to system clipboard, paste (p) from system clipboard
+" delete (d dd) just delete not cut 
+nnoremap d "_d
+vnoremap d "_d
+
+" Spell check 
 "Можно добавлять слова в словарь, используя zg или удалять, используя zug
 set keymap=russian-jcukenwin
 set iminsert=0
@@ -43,7 +36,6 @@ set history=200
 "Соответсвенно nowrap рендерит строчки за границами экрана
 set wrap linebreak nolist "Данная вариация работает как wrap...
 "... но переносит строчки не посимвольно, а по словам
-
 set linebreak
 set ruler
 set autoindent
@@ -95,14 +87,11 @@ set expandtab
 set tabstop=4
 set shiftwidth=4
 
-" vim-autoformat
-noremap <F3> :Autoformat<CR>
+noremap <F9> :Goyo <bar> :PencilSoft <bar> :setlocal spell! spelllang=ru,en_us <bar> :Limelight!! 0.5<CR>  
 
-" Goyo
-map <F9> :Goyo<CR>  
-map <F10> :PencilSoft<CR>
 let g:pencil#wrapModeDefault = 'soft'   " default is 'hard'
 let g:pencil#autoformat = 1      " 0=disable, 1=enable (def)
+
 " Pencil
 augroup pencil
     autocmd!
